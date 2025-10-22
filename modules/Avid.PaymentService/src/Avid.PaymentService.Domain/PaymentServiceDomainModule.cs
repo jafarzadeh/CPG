@@ -33,8 +33,9 @@ public class PaymentServiceDomainModule : AbpModule
 
         Configure<AbpAutoMapperOptions>(options =>
         {
-            options.AddProfile<PaymentServiceDomainAutoMapperProfile>(
-                false); // todo: https://github.com/abpframework/abp/issues/15404
+            options
+                .AddProfile<
+                    PaymentServiceDomainAutoMapperProfile>(); // todo: https://github.com/abpframework/abp/issues/15404
         });
     }
 }

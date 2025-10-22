@@ -49,9 +49,7 @@ public class PaymentAppService : ReadOnlyAppService<Payment, PaymentDto, Guid, G
         var entity = await GetEntityByIdAsync(id);
 
         if (entity.UserId != CurrentUser.GetId())
-        {
             await AuthorizationService.CheckAsync(PaymentServicePermissions.Payments.Manage.ManageDefault);
-        }
 
         return await MapToGetOutputDtoAsync(entity);
     }
@@ -61,9 +59,7 @@ public class PaymentAppService : ReadOnlyAppService<Payment, PaymentDto, Guid, G
         await CheckGetListPolicyAsync();
 
         if (!input.UserId.HasValue || input.UserId.Value != CurrentUser.GetId())
-        {
             await AuthorizationService.CheckAsync(PaymentServicePermissions.Payments.Manage.ManageDefault);
-        }
 
         var query = await CreateFilteredQueryAsync(input);
 
@@ -100,17 +96,13 @@ public class PaymentAppService : ReadOnlyAppService<Payment, PaymentDto, Guid, G
         var payment = await _repository.GetAsync(id);
 
         if (payment.UserId != CurrentUser.GetId())
-        {
             throw new UsingUnauthorizedPaymentException(CurrentUser.GetId(), payment.Id);
-        }
 
         var configurations = await GetPayeeConfigurationsAsync(payment);
 
         foreach (var property in input.ExtraProperties)
-        {
             // todo: we should validate the extra properties in PayInput, see: https://github.com/abpframework/abp/discussions/15583
             configurations.AddIfNotContains(new KeyValuePair<string, object>(property.Key, property.Value));
-        }
 
         await _paymentManager.StartPaymentAsync(payment, configurations);
 
@@ -123,9 +115,7 @@ public class PaymentAppService : ReadOnlyAppService<Payment, PaymentDto, Guid, G
 
         if (payment.UserId != CurrentUser.GetId() &&
             !await AuthorizationService.IsGrantedAsync(PaymentServicePermissions.Payments.Manage.Cancel))
-        {
             throw new UsingUnauthorizedPaymentException(CurrentUser.GetId(), payment.Id);
-        }
 
         await _paymentManager.StartCancelAsync(payment);
 
@@ -137,10 +127,7 @@ public class PaymentAppService : ReadOnlyAppService<Payment, PaymentDto, Guid, G
     {
         var payment = await _repository.GetAsync(id);
 
-        if (payment.PendingRefundAmount <= decimal.Zero)
-        {
-            throw new PaymentIsInUnexpectedStageException(payment.Id);
-        }
+        if (payment.PendingRefundAmount <= decimal.Zero) throw new PaymentIsInUnexpectedStageException(payment.Id);
 
         var refund = await _refundRepository.FindByPaymentIdAsync(payment.Id);
 

@@ -38,9 +38,7 @@ public class RefundAppService : ReadOnlyAppService<Refund, RefundDto, Guid, GetR
         var payment = await _paymentRepository.FindAsync(entity.PaymentId);
 
         if (payment == null || payment.UserId != CurrentUser.GetId())
-        {
             await AuthorizationService.CheckAsync(PaymentServicePermissions.Refunds.Manage);
-        }
 
         return await MapToGetOutputDtoAsync(entity);
     }
@@ -58,9 +56,7 @@ public class RefundAppService : ReadOnlyAppService<Refund, RefundDto, Guid, GetR
             var payment = await _paymentRepository.FindAsync(input.PaymentId.Value);
 
             if (payment == null || payment.UserId != CurrentUser.GetId())
-            {
                 await AuthorizationService.CheckAsync(PaymentServicePermissions.Refunds.Manage);
-            }
         }
 
         var query = await CreateFilteredQueryAsync(input);

@@ -18,8 +18,8 @@ public class PaymentServiceApplicationModule : AbpModule
         context.Services.AddAutoMapperObjectMapper<PaymentServiceApplicationModule>();
         Configure<AbpAutoMapperOptions>(options =>
         {
-            options.AddMaps<PaymentServiceApplicationModule>(
-                false); // todo: https://github.com/abpframework/abp/issues/15404
+            options
+                .AddMaps<PaymentServiceApplicationModule>(); // todo: https://github.com/abpframework/abp/issues/15404
         });
     }
 }

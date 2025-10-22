@@ -12,8 +12,6 @@ public class ChangeBalanceInput : IValidatableObject
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
         if (ChangedBalance == decimal.Zero)
-        {
             yield return new ValidationResult("The ChangedBalance should not be zero!", new[] { "ChangedBalance" });
-        }
     }
 }

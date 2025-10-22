@@ -32,9 +32,7 @@ public class TransactionAppService : ReadOnlyAppService<Transaction, Transaction
         var dto = await base.GetAsync(id);
         var account = await _accountRepository.GetAsync(dto.AccountId);
         if (account.UserId != CurrentUser.GetId())
-        {
             await AuthorizationService.CheckAsync(DigitalWalletPermissions.Transaction.Manage);
-        }
 
         return dto;
     }
@@ -44,9 +42,7 @@ public class TransactionAppService : ReadOnlyAppService<Transaction, Transaction
     {
         var account = await _accountRepository.GetAsync(input.AccountId);
         if (account.UserId != CurrentUser.GetId())
-        {
             await AuthorizationService.CheckAsync(DigitalWalletPermissions.Transaction.Manage);
-        }
 
         return await base.GetListAsync(input);
     }

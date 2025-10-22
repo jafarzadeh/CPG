@@ -18,11 +18,9 @@ public class FakeCurrentPrincipalAccessor : ThreadCurrentPrincipalAccessor
     private ClaimsPrincipal GetPrincipal()
     {
         if (_principal == null)
-        {
             lock (this)
             {
                 if (_principal == null)
-                {
                     _principal = new ClaimsPrincipal(
                         new ClaimsIdentity(
                             new List<Claim>
@@ -33,9 +31,7 @@ public class FakeCurrentPrincipalAccessor : ThreadCurrentPrincipalAccessor
                             }
                         )
                     );
-                }
             }
-        }
 
         return _principal;
     }

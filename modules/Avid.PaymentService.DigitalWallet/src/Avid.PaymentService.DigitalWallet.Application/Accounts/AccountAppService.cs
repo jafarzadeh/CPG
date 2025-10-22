@@ -46,9 +46,7 @@ public class AccountAppService : ReadOnlyAppService<Account, AccountDto, Guid, G
     {
         var dto = await base.GetAsync(id);
         if (dto.UserId != CurrentUser.GetId())
-        {
             await AuthorizationService.CheckAsync(DigitalWalletPermissions.Account.Manage.ManageDefault);
-        }
 
         return dto;
     }
@@ -57,30 +55,20 @@ public class AccountAppService : ReadOnlyAppService<Account, AccountDto, Guid, G
     public override async Task<PagedResultDto<AccountDto>> GetListAsync(GetAccountListInput input)
     {
         if (input.UserId != CurrentUser.GetId())
-        {
             await AuthorizationService.CheckAsync(DigitalWalletPermissions.Account.Manage.ManageDefault);
-        }
 
         var result = await base.GetListAsync(input);
-        if (!input.UserId.HasValue)
-        {
-            return result;
-        }
+        if (!input.UserId.HasValue) return result;
 
         var allAccountGroupNames = _options.AccountGroups.GetAutoCreationAccountGroupNames();
         var missingAccountGroupNames =
             allAccountGroupNames.Except(result.Items.Select(x => x.AccountGroupName)).ToArray();
         foreach (var accountGroupName in missingAccountGroupNames)
-        {
             await _repository.InsertAsync(
                 new Account(GuidGenerator.Create(), CurrentTenant.Id, accountGroupName, input.UserId.Value, 0, 0),
                 true);
-        }
 
-        if (!missingAccountGroupNames.IsNullOrEmpty())
-        {
-            result = await base.GetListAsync(input);
-        }
+        if (!missingAccountGroupNames.IsNullOrEmpty()) result = await base.GetListAsync(input);
 
         return result;
     }
@@ -115,15 +103,9 @@ public class AccountAppService : ReadOnlyAppService<Account, AccountDto, Guid, G
     public virtual async Task TopUpAsync(Guid id, TopUpInput input)
     {
         var account = await _repository.GetAsync(id);
-        if (account.UserId != CurrentUser.GetId())
-        {
-            throw new UnauthorizedTopUpException(account.Id);
-        }
+        if (account.UserId != CurrentUser.GetId()) throw new UnauthorizedTopUpException(account.Id);
 
-        if (account.PendingTopUpPaymentId.HasValue)
-        {
-            throw new TopUpIsAlreadyInProgressException();
-        }
+        if (account.PendingTopUpPaymentId.HasValue) throw new TopUpIsAlreadyInProgressException();
 
         var configuration = _accountGroupConfigurationProvider.Get(account.AccountGroupName);
         await _distributedEventBus.PublishAsync(new CreatePaymentEto(CurrentTenant.Id, CurrentUser.GetId(),
@@ -142,10 +124,7 @@ public class AccountAppService : ReadOnlyAppService<Account, AccountDto, Guid, G
     public virtual async Task WithdrawAsync(Guid id, WithdrawInput input)
     {
         var account = await _repository.GetAsync(id);
-        if (account.UserId != CurrentUser.GetId())
-        {
-            throw new AbpAuthorizationException();
-        }
+        if (account.UserId != CurrentUser.GetId()) throw new AbpAuthorizationException();
 
         var accountWithdrawalManager = ServiceProvider.GetRequiredService<IAccountWithdrawalManager>();
         await accountWithdrawalManager.StartWithdrawalAsync(account, input.WithdrawalMethod, input.Amount,

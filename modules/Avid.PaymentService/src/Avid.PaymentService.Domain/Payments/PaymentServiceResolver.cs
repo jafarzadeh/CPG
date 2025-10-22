@@ -15,9 +15,7 @@ public class PaymentServiceResolver : IPaymentServiceResolver, ISingletonDepende
         IOptions<PaymentServiceOptions> options)
     {
         foreach (var provider in options.Value.Providers.GetConfigurations())
-        {
             Providers.Add(provider.ProviderName, provider.ProviderType);
-        }
     }
 
     public virtual List<string> GetPaymentMethods()

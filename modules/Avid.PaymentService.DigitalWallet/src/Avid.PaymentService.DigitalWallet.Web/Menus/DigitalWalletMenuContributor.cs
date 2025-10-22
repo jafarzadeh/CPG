@@ -10,10 +10,7 @@ public class DigitalWalletMenuContributor : IMenuContributor
 {
     public async Task ConfigureMenuAsync(MenuConfigurationContext context)
     {
-        if (context.Menu.Name == StandardMenus.Main)
-        {
-            await ConfigureMainMenu(context);
-        }
+        if (context.Menu.Name == StandardMenus.Main) await ConfigureMainMenu(context);
     }
 
     private async Task ConfigureMainMenu(MenuConfigurationContext context)
@@ -25,16 +22,12 @@ public class DigitalWalletMenuContributor : IMenuContributor
         var DigitalWalletManagementMenuItem =
             new ApplicationMenuItem(DigitalWalletMenus.Prefix, l["Menu:DigitalWalletManagement"]);
         if (await context.IsGrantedAsync(DigitalWalletPermissions.Account.Manage.ManageDefault))
-        {
             DigitalWalletManagementMenuItem.AddItem(new ApplicationMenuItem(DigitalWalletMenus.Account,
                 l["Menu:Account"], "/PaymentService/DigitalWallet/Accounts/Account"));
-        }
 
         if (await context.IsGrantedAsync(DigitalWalletPermissions.WithdrawalRequest.Manage))
-        {
             DigitalWalletManagementMenuItem.AddItem(new ApplicationMenuItem(DigitalWalletMenus.WithdrawalRequest,
                 l["Menu:WithdrawalRequest"], "/PaymentService/DigitalWallet/WithdrawalRequests/WithdrawalRequest"));
-        }
 
         if (!DigitalWalletManagementMenuItem.Items.IsNullOrEmpty())
         {

@@ -10,7 +10,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\modules\Avid.PaymentService.DigitalWallet\src\Avid.PaymentService.DigitalWallet.EntityFrameworkCore\Avid.PaymentService.DigitalWallet.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\..\..\..\..\modules\Avid.PaymentService\src\Avid.PaymentService.EntityFrameworkCore\Avid.PaymentService.EntityFrameworkCore.csproj" />
-    <ProjectReference Include="..\..\..\..\..\modules\Avid.PaymentService.WeChatPay\src\Avid.PaymentService.WeChatPay.EntityFrameworkCore\Avid.PaymentService.WeChatPay.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\PaymentServiceSample.Domain\PaymentServiceSample.Domain.csproj" />
     <PackageReference Include="Volo.Abp.EntityFrameworkCore.SqlServer" Version="$(AbpVersion)" />
     <PackageReference Include="Volo.Abp.PermissionManagement.EntityFrameworkCore" Version="$(AbpVersion)" />

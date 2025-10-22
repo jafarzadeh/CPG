@@ -55,10 +55,7 @@ public class PaymentItem : FullAuditedEntity<Guid>, IPaymentItem
 
     internal bool TryStartRefund(decimal refundAmount)
     {
-        if (refundAmount <= decimal.Zero || ActualPaymentAmount < RefundAmount + refundAmount)
-        {
-            return false;
-        }
+        if (refundAmount <= decimal.Zero || ActualPaymentAmount < RefundAmount + refundAmount) return false;
 
         PendingRefundAmount = refundAmount;
 
@@ -67,10 +64,7 @@ public class PaymentItem : FullAuditedEntity<Guid>, IPaymentItem
 
     internal bool TryCompleteRefund()
     {
-        if (PendingRefundAmount <= decimal.Zero)
-        {
-            return false;
-        }
+        if (PendingRefundAmount <= decimal.Zero) return false;
 
         RefundAmount += PendingRefundAmount;
 
@@ -81,10 +75,7 @@ public class PaymentItem : FullAuditedEntity<Guid>, IPaymentItem
 
     internal bool TryRollbackRefund()
     {
-        if (PendingRefundAmount <= decimal.Zero)
-        {
-            return false;
-        }
+        if (PendingRefundAmount <= decimal.Zero) return false;
 
         PendingRefundAmount = decimal.Zero;
 

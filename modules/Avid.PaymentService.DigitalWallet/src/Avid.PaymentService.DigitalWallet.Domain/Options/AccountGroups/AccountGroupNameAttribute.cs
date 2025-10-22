@@ -28,10 +28,7 @@ public class AccountGroupNameAttribute : Attribute
     public static string GetAccountGroupName(Type type)
     {
         var nameAttribute = type.GetCustomAttribute<AccountGroupNameAttribute>();
-        if (nameAttribute == null)
-        {
-            return type.FullName;
-        }
+        if (nameAttribute == null) return type.FullName;
 
         return nameAttribute.GetName(type);
     }

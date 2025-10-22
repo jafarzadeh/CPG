@@ -41,7 +41,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\modules\Avid.PaymentService.DigitalWallet\src\Avid.PaymentService.DigitalWallet.Web\Avid.PaymentService.DigitalWallet.Web.csproj" />
     <ProjectReference Include="..\..\..\..\..\modules\Avid.PaymentService\src\Avid.PaymentService.Web\Avid.PaymentService.Web.csproj" />
-    <ProjectReference Include="..\..\..\..\..\modules\Avid.PaymentService.WeChatPay\src\Avid.PaymentService.WeChatPay.Web\Avid.PaymentService.WeChatPay.Web.csproj" />
     <ProjectReference Include="..\PaymentServiceSample.Application\PaymentServiceSample.Application.csproj" />
     <ProjectReference Include="..\PaymentServiceSample.HttpApi\PaymentServiceSample.HttpApi.csproj" />
     <ProjectReference Include="..\PaymentServiceSample.EntityFrameworkCore\PaymentServiceSample.EntityFrameworkCore.csproj" />

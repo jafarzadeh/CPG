@@ -1,1 +1,8 @@
-using Avid.PaymentService.DigitalWallet.Options.WithdrawalMethods;namespace PaymentServiceSample.Web{    [WithdrawalMethodName("Null")]    public class NullWithdrawalMethod    {            }}
+using Avid.PaymentService.DigitalWallet.Options.WithdrawalMethods;
+
+namespace PaymentServiceSample.Web;
+
+[WithdrawalMethodName("Null")]
+public class NullWithdrawalMethod
+{
+}

@@ -34,9 +34,7 @@ public class WithdrawalRequestAppService :
     {
         var dto = await base.GetAsync(id);
         if (dto.AccountUserId != CurrentUser.GetId())
-        {
             await AuthorizationService.CheckAsync(DigitalWalletPermissions.WithdrawalRequest.Manage);
-        }
 
         return dto;
     }
@@ -47,9 +45,7 @@ public class WithdrawalRequestAppService :
         var currentUserId = CurrentUser.GetId();
         if ((input.AccountUserId.HasValue && input.AccountUserId.Value != currentUserId) || (input.AccountId.HasValue &&
                 (await _accountRepository.GetAsync(input.AccountId.Value)).UserId != currentUserId))
-        {
             await AuthorizationService.CheckAsync(DigitalWalletPermissions.WithdrawalRequest.Manage);
-        }
 
         return await base.GetListAsync(input);
     }
@@ -60,21 +56,14 @@ public class WithdrawalRequestAppService :
         var request = await _repository.GetAsync(id);
         var account = await _accountRepository.GetAsync(request.AccountId);
         request.CheckReviewable();
-        if (account.PendingWithdrawalAmount != request.Amount)
-        {
-            throw new UnexpectedWithdrawalAmountException();
-        }
+        if (account.PendingWithdrawalAmount != request.Amount) throw new UnexpectedWithdrawalAmountException();
 
         request.Review(Clock.Now, CurrentUser.GetId(), input.IsApproved);
         await _repository.UpdateAsync(request, true);
         if (input.IsApproved)
-        {
             await _accountWithdrawalManager.CompleteWithdrawalAsync(account);
-        }
         else
-        {
             await _accountWithdrawalManager.CancelWithdrawalAsync(account);
-        }
 
         return await MapToGetOutputDtoAsync(request);
     }

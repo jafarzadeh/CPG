@@ -12,10 +12,7 @@ public class IndexModel : DigitalWalletPageModel
 
     public virtual async Task OnGetAsync()
     {
-        if (!UserId.HasValue)
-        {
-            return;
-        }
+        if (!UserId.HasValue) return;
 
         var userLookupServiceProvider =
             LazyServiceProvider.LazyGetRequiredService<IExternalUserLookupServiceProvider>();

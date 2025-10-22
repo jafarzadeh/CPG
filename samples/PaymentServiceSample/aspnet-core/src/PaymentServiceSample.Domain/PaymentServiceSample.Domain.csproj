@@ -10,7 +10,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\modules\Avid.PaymentService.DigitalWallet\src\Avid.PaymentService.DigitalWallet.Domain\Avid.PaymentService.DigitalWallet.Domain.csproj" />
     <ProjectReference Include="..\..\..\..\..\modules\Avid.PaymentService\src\Avid.PaymentService.Domain\Avid.PaymentService.Domain.csproj" />
-    <ProjectReference Include="..\..\..\..\..\modules\Avid.PaymentService.WeChatPay\src\Avid.PaymentService.WeChatPay.Domain\Avid.PaymentService.WeChatPay.Domain.csproj" />
     <ProjectReference Include="..\PaymentServiceSample.Domain.Shared\PaymentServiceSample.Domain.Shared.csproj" />
   </ItemGroup>
 

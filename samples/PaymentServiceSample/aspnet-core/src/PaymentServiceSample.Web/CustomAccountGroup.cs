@@ -1,1 +1,8 @@
-using Avid.PaymentService.DigitalWallet.Options.AccountGroups;namespace PaymentServiceSample.Web{    [AccountGroupName("custom")]    public class CustomAccountGroup    {            }}
+using Avid.PaymentService.DigitalWallet.Options.AccountGroups;
+
+namespace PaymentServiceSample.Web;
+
+[AccountGroupName("custom")]
+public class CustomAccountGroup
+{
+}

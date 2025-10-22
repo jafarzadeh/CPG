@@ -48,9 +48,7 @@ public class TopUpPaymentCompletedEventHandler : IDistributedEventHandler<Paymen
                 payment.ExternalTradingCode, configuration.Currency, changedBalance, account.Balance);
             await _transactionRepository.InsertAsync(transaction, true);
             if (payment.Currency != _accountGroupConfigurationProvider.Get(account.AccountGroupName).Currency)
-            {
                 throw new CurrencyNotSupportedException(payment.Currency);
-            }
 
             account.ChangeBalance(configuration, changedBalance);
             account.SetPendingTopUpPaymentId(null);
@@ -62,9 +60,7 @@ public class TopUpPaymentCompletedEventHandler : IDistributedEventHandler<Paymen
     {
         var changedBalance = paymentItem.OriginalPaymentAmount;
         if (!changedBalance.IsBetween(decimal.Zero, DigitalWalletConsts.AccountMaxBalance))
-        {
             throw new AmountOverflowException(decimal.Zero, DigitalWalletConsts.AccountMaxBalance);
-        }
 
         return changedBalance;
     }

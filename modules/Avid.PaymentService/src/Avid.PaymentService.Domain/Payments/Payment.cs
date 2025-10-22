@@ -101,23 +101,15 @@ public class Payment : FullAuditedAggregateRoot<Guid>, IPayment, IMultiTenant
 
     public void StartRefund(Refund refund)
     {
-        if (IsCanceled() || !IsCompleted())
-        {
-            throw new PaymentIsInUnexpectedStageException(Id);
-        }
+        if (IsCanceled() || !IsCompleted()) throw new PaymentIsInUnexpectedStageException(Id);
 
-        if (PendingRefundAmount != decimal.Zero)
-        {
-            throw new AnotherRefundTaskIsOnGoingException(Id);
-        }
+        if (PendingRefundAmount != decimal.Zero) throw new AnotherRefundTaskIsOnGoingException(Id);
 
         var refundAmount = refund.RefundAmount.EnsureIsNonNegative();
 
         if (ActualPaymentAmount < RefundAmount + refundAmount || refund.RefundItems.Any(item =>
                 !PaymentItems.First(x => x.Id == item.PaymentItemId).TryStartRefund(item.RefundAmount)))
-        {
             throw new InvalidRefundAmountException(Id, refundAmount);
-        }
 
         PendingRefundAmount = refundAmount;
     }
@@ -125,14 +117,9 @@ public class Payment : FullAuditedAggregateRoot<Guid>, IPayment, IMultiTenant
     public void CompleteRefund()
     {
         if (IsCanceled() || !IsCompleted() || PendingRefundAmount.EnsureIsNonNegative() <= decimal.Zero)
-        {
             throw new PaymentIsInUnexpectedStageException(Id);
-        }
 
-        foreach (var paymentItem in PaymentItems)
-        {
-            paymentItem.TryCompleteRefund();
-        }
+        foreach (var paymentItem in PaymentItems) paymentItem.TryCompleteRefund();
 
         RefundAmount += PendingRefundAmount;
 
@@ -141,15 +128,9 @@ public class Payment : FullAuditedAggregateRoot<Guid>, IPayment, IMultiTenant
 
     public void RollbackRefund()
     {
-        if (IsCanceled() || !IsCompleted())
-        {
-            throw new PaymentIsInUnexpectedStageException(Id);
-        }
+        if (IsCanceled() || !IsCompleted()) throw new PaymentIsInUnexpectedStageException(Id);
 
-        foreach (var paymentItem in PaymentItems)
-        {
-            paymentItem.TryRollbackRefund();
-        }
+        foreach (var paymentItem in PaymentItems) paymentItem.TryRollbackRefund();
 
         PendingRefundAmount = decimal.Zero;
     }
@@ -171,9 +152,6 @@ public class Payment : FullAuditedAggregateRoot<Guid>, IPayment, IMultiTenant
 
     private void CheckIsInProgress()
     {
-        if (!IsInProgress())
-        {
-            throw new PaymentIsInUnexpectedStageException(Id);
-        }
+        if (!IsInProgress()) throw new PaymentIsInUnexpectedStageException(Id);
     }
 }

@@ -41,8 +41,6 @@ public class WithdrawalRequest : FullAuditedAggregateRoot<Guid>, IMultiTenant
     public void CheckReviewable()
     {
         if (ReviewTime.HasValue || ReviewerUserId.HasValue || IsApproved.HasValue)
-        {
             throw new WithdrawalRequestHasBeenReviewedException();
-        }
     }
 }

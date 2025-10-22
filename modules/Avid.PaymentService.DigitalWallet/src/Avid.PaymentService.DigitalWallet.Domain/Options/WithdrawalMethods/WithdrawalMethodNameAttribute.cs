@@ -28,10 +28,7 @@ public class WithdrawalMethodNameAttribute : Attribute
     public static string GetWithdrawalMethodName(Type type)
     {
         var nameAttribute = type.GetCustomAttribute<WithdrawalMethodNameAttribute>();
-        if (nameAttribute == null)
-        {
-            return type.FullName;
-        }
+        if (nameAttribute == null) return type.FullName;
 
         return nameAttribute.GetName(type);
     }

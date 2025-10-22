@@ -31,10 +31,7 @@ public class AccountGroupConfigurations
 
     public AccountGroupConfigurations ConfigureAll(Action<string, AccountGroupConfiguration> configureAction)
     {
-        foreach (var accountGroup in _accountGroups)
-        {
-            configureAction(accountGroup.Key, accountGroup.Value);
-        }
+        foreach (var accountGroup in _accountGroups) configureAction(accountGroup.Key, accountGroup.Value);
 
         return this;
     }

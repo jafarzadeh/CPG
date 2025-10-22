@@ -47,40 +47,28 @@ public class DigitalWalletPaymentServiceProvider : PaymentServiceProvider
     public override async Task OnPaymentStartedAsync(Payment payment, ExtraPropertyDictionary configurations)
     {
         if (payment.ActualPaymentAmount <= decimal.Zero)
-        {
             throw new PaymentAmountInvalidException(payment.ActualPaymentAmount, payment.PaymentMethod);
-        }
 
         if (!Guid.TryParse(configurations.GetOrDefault(DigitalWalletConsts.PaymentAccountIdPropertyName).ToString(),
                 out var accountId))
-        {
             throw new ArgumentNullException(DigitalWalletConsts.PaymentAccountIdPropertyName);
-        }
 
         var account = await _accountRepository.GetAsync(accountId);
         if (account.UserId != _currentUser.GetId())
-        {
             throw new UserIsNotAccountOwnerException(_currentUser.GetId(), accountId);
-        }
 
         payment.SetProperty(DigitalWalletConsts.PaymentAccountIdPropertyName, accountId);
         var accountGroupConfiguration = _accountGroupConfigurationProvider.Get(account.AccountGroupName);
         if (!accountGroupConfiguration.AllowedUsingToTopUpOtherAccounts &&
             payment.PaymentItems.Any(x => x.ItemType == DigitalWalletConsts.TopUpPaymentItemType))
-        {
             throw new AccountTopingUpOtherAccountsIsNotAllowedException(account.AccountGroupName);
-        }
 
         if (payment.PaymentItems.Any(x =>
                 x.ItemType == DigitalWalletConsts.TopUpPaymentItemType && x.ItemKey == accountId.ToString()))
-        {
             throw new SelfTopUpException();
-        }
 
         if (payment.Currency != accountGroupConfiguration.Currency)
-        {
             throw new CurrencyNotSupportedException(payment.Currency);
-        }
 
         var accountChangedBalance = -1 * payment.ActualPaymentAmount;
         var transaction = new Transaction(_guidGenerator.Create(), _currentTenant.Id, account.Id, account.UserId,
@@ -102,10 +90,7 @@ public class DigitalWalletPaymentServiceProvider : PaymentServiceProvider
     public override async Task OnRefundStartedAsync(Payment payment, Refund refund)
     {
         var accountId = payment.GetProperty<Guid?>(DigitalWalletConsts.PaymentAccountIdPropertyName);
-        if (accountId is null)
-        {
-            throw new ArgumentNullException(DigitalWalletConsts.PaymentAccountIdPropertyName);
-        }
+        if (accountId is null) throw new ArgumentNullException(DigitalWalletConsts.PaymentAccountIdPropertyName);
 
         var account = await _accountRepository.GetAsync(accountId.Value);
         var configuration = _accountGroupConfigurationProvider.Get(account.AccountGroupName);

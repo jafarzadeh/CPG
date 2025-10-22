@@ -54,10 +54,7 @@ public class CreatePaymentEventHandler : ICreatePaymentEventHandler, ITransientD
             }
         ).ToList();
 
-        if (await HasDuplicatePaymentItemInProgressAsync(paymentItems))
-        {
-            throw new DuplicatePaymentRequestException();
-        }
+        if (await HasDuplicatePaymentItemInProgressAsync(paymentItems)) throw new DuplicatePaymentRequestException();
 
         var payment = new Payment(_guidGenerator.Create(), eventData.TenantId, eventData.UserId,
             eventData.PaymentMethod, eventData.Currency, paymentItems.Select(item => item.OriginalPaymentAmount).Sum(),
@@ -71,12 +68,8 @@ public class CreatePaymentEventHandler : ICreatePaymentEventHandler, ITransientD
     protected virtual async Task<bool> HasDuplicatePaymentItemInProgressAsync(IEnumerable<PaymentItem> paymentItems)
     {
         foreach (var item in paymentItems)
-        {
             if (await _paymentRepository.FindPaymentInProgressByPaymentItem(item.ItemType, item.ItemKey) != null)
-            {
                 return true;
-            }
-        }
 
         return false;
     }

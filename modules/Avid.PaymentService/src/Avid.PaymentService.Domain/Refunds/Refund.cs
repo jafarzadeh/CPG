@@ -70,20 +70,14 @@ public class Refund : FullAuditedAggregateRoot<Guid>, IRefund, IMultiTenant
 
     public void CompleteRefund(DateTime completedTime)
     {
-        if (CompletedTime.HasValue || CanceledTime.HasValue)
-        {
-            throw new RefundIsInUnexpectedStageException(Id);
-        }
+        if (CompletedTime.HasValue || CanceledTime.HasValue) throw new RefundIsInUnexpectedStageException(Id);
 
         CompletedTime = completedTime;
     }
 
     public void CancelRefund(DateTime cancelTime)
     {
-        if (CompletedTime.HasValue || CanceledTime.HasValue)
-        {
-            throw new RefundIsInUnexpectedStageException(Id);
-        }
+        if (CompletedTime.HasValue || CanceledTime.HasValue) throw new RefundIsInUnexpectedStageException(Id);
 
         CanceledTime = cancelTime;
     }

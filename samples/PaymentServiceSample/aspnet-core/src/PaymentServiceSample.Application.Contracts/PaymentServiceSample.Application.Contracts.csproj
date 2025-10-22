@@ -8,9 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\modules\Avid.PaymentService.DigitalWallet\src\Avid.PaymentService.DigitalWallet.Application.Contracts\Avid.PaymentService.DigitalWallet.Application.Contracts.csproj" />
-    <ProjectReference Include="..\..\..\..\..\modules\Avid.PaymentService\src\Avid.PaymentService.Application.Contracts\Avid.PaymentService.Application.Contracts.csproj" />
-    <ProjectReference Include="..\..\..\..\..\modules\Avid.PaymentService.WeChatPay\src\Avid.PaymentService.WeChatPay.Application.Contracts\Avid.PaymentService.WeChatPay.Application.Contracts.csproj" />
+    <ProjectReference
+      Include="..\..\..\..\..\modules\Avid.PaymentService.DigitalWallet\src\Avid.PaymentService.DigitalWallet.Application.Contracts\Avid.PaymentService.DigitalWallet.Application.Contracts.csproj" />
+    <ProjectReference
+      Include="..\..\..\..\..\modules\Avid.PaymentService\src\Avid.PaymentService.Application.Contracts\Avid.PaymentService.Application.Contracts.csproj" />
     <ProjectReference Include="..\PaymentServiceSample.Domain.Shared\PaymentServiceSample.Domain.Shared.csproj" />
   </ItemGroup>
 
@@ -25,9 +26,3 @@
   </ItemGroup>
 
 </Project>
-
-
-
-
-
-

@@ -46,9 +46,6 @@ public class WithdrawalRecord : FullAuditedAggregateRoot<Guid>, IMultiTenant
 
     private void CheckWithdrawalIsInProgress()
     {
-        if (CompletionTime.HasValue || CancellationTime.HasValue)
-        {
-            throw new WithdrawalIsNotInProgressException();
-        }
+        if (CompletionTime.HasValue || CancellationTime.HasValue) throw new WithdrawalIsNotInProgressException();
     }
 }

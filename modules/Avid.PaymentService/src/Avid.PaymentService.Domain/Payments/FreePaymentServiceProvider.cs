@@ -24,9 +24,7 @@ public class FreePaymentServiceProvider : PaymentServiceProvider
     public override async Task OnPaymentStartedAsync(Payment payment, ExtraPropertyDictionary configurations)
     {
         if (payment.ActualPaymentAmount != decimal.Zero)
-        {
             throw new PaymentAmountInvalidException(payment.ActualPaymentAmount, payment.PaymentMethod);
-        }
 
         // payment.SetPayeeAccount("None");
 

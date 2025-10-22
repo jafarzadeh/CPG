@@ -43,10 +43,7 @@ public class PaymentServiceProviderConfigurations
     public PaymentServiceProviderConfigurations ConfigureAll(
         Action<string, PaymentServiceProviderConfiguration> configureAction)
     {
-        foreach (var provider in _providers)
-        {
-            configureAction(provider.Key, provider.Value);
-        }
+        foreach (var provider in _providers) configureAction(provider.Key, provider.Value);
 
         return this;
     }

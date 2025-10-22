@@ -1,1 +1,6 @@
-namespace PaymentServiceSample{    public abstract class PaymentServiceSampleApplicationTestBase : PaymentServiceSampleTestBase<PaymentServiceSampleApplicationTestModule>     {    }}
+namespace PaymentServiceSample;
+
+public abstract class
+    PaymentServiceSampleApplicationTestBase : PaymentServiceSampleTestBase<PaymentServiceSampleApplicationTestModule>
+{
+}

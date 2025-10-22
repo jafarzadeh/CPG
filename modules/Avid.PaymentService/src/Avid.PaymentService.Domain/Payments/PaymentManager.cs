@@ -59,10 +59,7 @@ public class PaymentManager : DomainService, IPaymentManager
 
     public virtual async Task StartCancelAsync(Payment payment)
     {
-        if (!payment.IsInProgress())
-        {
-            throw new PaymentIsInUnexpectedStageException(payment.Id);
-        }
+        if (!payment.IsInProgress()) throw new PaymentIsInUnexpectedStageException(payment.Id);
 
         var provider = GetProvider(payment);
 
@@ -95,20 +92,12 @@ public class PaymentManager : DomainService, IPaymentManager
 
         var exceptItemIds = paymentItemIds.Except(payment.PaymentItems.Select(x => x.Id)).ToList();
 
-        if (exceptItemIds.Any())
-        {
-            throw new EntityNotFoundException(typeof(PaymentItem), exceptItemIds);
-        }
+        if (exceptItemIds.Any()) throw new EntityNotFoundException(typeof(PaymentItem), exceptItemIds);
 
-        if (paymentItemIds.Count != paymentItemIds.Distinct().Count())
-        {
-            throw new DuplicatePaymentItemIdException();
-        }
+        if (paymentItemIds.Count != paymentItemIds.Distinct().Count()) throw new DuplicatePaymentItemIdException();
 
         if (await _refundRepository.FindByPaymentIdAsync(payment.Id) != null)
-        {
             throw new AnotherRefundIsInProgressException(payment.Id);
-        }
 
         var refund = CreateRefund(payment, input);
 

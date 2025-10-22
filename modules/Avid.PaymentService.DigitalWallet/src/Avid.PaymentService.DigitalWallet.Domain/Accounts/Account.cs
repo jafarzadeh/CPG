@@ -47,10 +47,8 @@ public class Account : FullAuditedAggregateRoot<Guid>, IMultiTenant
         {
             var pendingWithdrawalAmount = PendingWithdrawalAmount;
             if (newLockedBalance < pendingWithdrawalAmount)
-            {
                 throw new LockedBalanceIsLessThenPendingWithdrawalAmountException(newLockedBalance,
                     pendingWithdrawalAmount);
-            }
         }
 
         LockedBalance = newLockedBalance;
@@ -61,19 +59,11 @@ public class Account : FullAuditedAggregateRoot<Guid>, IMultiTenant
         var minBalance = config.AccountMinBalance ?? DigitalWalletConsts.AccountMinBalance;
         var maxBalance = config.AccountMaxBalance ?? DigitalWalletConsts.AccountMaxBalance;
         if (!balance.IsBetween(minBalance, maxBalance))
-        {
             throw new AmountOverflowException("balance", minBalance, maxBalance);
-        }
 
-        if (lockedBalance < decimal.Zero)
-        {
-            throw new AmountOverflowException("locked balance", decimal.Zero, maxBalance);
-        }
+        if (lockedBalance < decimal.Zero) throw new AmountOverflowException("locked balance", decimal.Zero, maxBalance);
 
-        if (balance - minBalance < lockedBalance)
-        {
-            throw new InsufficientBalanceToLockException(lockedBalance, balance);
-        }
+        if (balance - minBalance < lockedBalance) throw new InsufficientBalanceToLockException(lockedBalance, balance);
     }
 
     public void SetPendingTopUpPaymentId(Guid? pendingTopUpPaymentId)
@@ -84,9 +74,7 @@ public class Account : FullAuditedAggregateRoot<Guid>, IMultiTenant
     public void StartWithdrawal(AccountGroupConfiguration config, Guid pendingWithdrawalRecordId, decimal amount)
     {
         if (PendingWithdrawalRecordId.HasValue || PendingWithdrawalAmount != decimal.Zero)
-        {
             throw new WithdrawalIsAlreadyInProgressException();
-        }
 
         ChangeLockedBalance(config, amount);
         SetPendingWithdrawalRecordId(pendingWithdrawalRecordId);
@@ -108,9 +96,7 @@ public class Account : FullAuditedAggregateRoot<Guid>, IMultiTenant
     private void ClearPendingWithdrawal(AccountGroupConfiguration config)
     {
         if (!PendingWithdrawalRecordId.HasValue || PendingWithdrawalAmount == decimal.Zero)
-        {
             throw new WithdrawalInProgressNotFoundException();
-        }
 
         ChangeLockedBalance(config, -1 * PendingWithdrawalAmount, true);
         SetPendingWithdrawalRecordId(null);

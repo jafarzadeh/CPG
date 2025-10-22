@@ -1,7 +1,6 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29020.237
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36429.23 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentServiceSample.Domain", "samples\PaymentServiceSample\aspnet-core\src\PaymentServiceSample.Domain\PaymentServiceSample.Domain.csproj", "{554AD327-6DBA-4F8F-96F8-81CE7A0C863F}"
 EndProject
@@ -74,42 +73,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avid.PaymentService.MongoDB.Tests", "modules\Avid.PaymentService\test\Avid.PaymentService.MongoDB.Tests\Avid.PaymentService.MongoDB.Tests.csproj", "{5177BD4A-A370-4D51-B757-96DB80B6FF44}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avid.PaymentService.TestBase", "modules\Avid.PaymentService\test\Avid.PaymentService.TestBase\Avid.PaymentService.TestBase.csproj", "{CC1D055F-4F38-4BBD-B72D-A2855D069E85}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Avid.PaymentService.WeChatPay", "Avid.PaymentService.WeChatPay", "{9A6B15DF-EA80-4B8F-AEE6-FE84FA14F0F5}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4D2E014A-433C-4557-8BD5-AE0788A5D5CD}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{26EC0A00-3EA3-4C73-A3D9-21BC7AF4C206}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avid.PaymentService.WeChatPay.Application", "modules\Avid.PaymentService.WeChatPay\src\Avid.PaymentService.WeChatPay.Application\Avid.PaymentService.WeChatPay.Application.csproj", "{EC3A13E6-A0F6-4233-98FF-107698F7F83B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avid.PaymentService.WeChatPay.Application.Contracts", "modules\Avid.PaymentService.WeChatPay\src\Avid.PaymentService.WeChatPay.Application.Contracts\Avid.PaymentService.WeChatPay.Application.Contracts.csproj", "{92B407F1-F54B-4ADB-9FF1-E2438FF99A7F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avid.PaymentService.WeChatPay.Domain", "modules\Avid.PaymentService.WeChatPay\src\Avid.PaymentService.WeChatPay.Domain\Avid.PaymentService.WeChatPay.Domain.csproj", "{FD509137-F4DF-4E7B-92D2-FA10B25D279D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avid.PaymentService.WeChatPay.Domain.Shared", "modules\Avid.PaymentService.WeChatPay\src\Avid.PaymentService.WeChatPay.Domain.Shared\Avid.PaymentService.WeChatPay.Domain.Shared.csproj", "{9EF90A28-5785-429A-AE2E-D1366D146C29}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avid.PaymentService.WeChatPay.HttpApi.Client", "modules\Avid.PaymentService.WeChatPay\src\Avid.PaymentService.WeChatPay.HttpApi.Client\Avid.PaymentService.WeChatPay.HttpApi.Client.csproj", "{B02B9E1C-16AD-46B0-A453-DBDDBC30B2C3}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avid.PaymentService.WeChatPay.MongoDB", "modules\Avid.PaymentService.WeChatPay\src\Avid.PaymentService.WeChatPay.MongoDB\Avid.PaymentService.WeChatPay.MongoDB.csproj", "{464F96C7-7283-44EC-84A9-0FE734912D1F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avid.PaymentService.WeChatPay.Web", "modules\Avid.PaymentService.WeChatPay\src\Avid.PaymentService.WeChatPay.Web\Avid.PaymentService.WeChatPay.Web.csproj", "{1C7401D8-D1CE-465D-AAD8-1F22BCE87A47}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avid.PaymentService.WeChatPay.Application.Tests", "modules\Avid.PaymentService.WeChatPay\test\Avid.PaymentService.WeChatPay.Application.Tests\Avid.PaymentService.WeChatPay.Application.Tests.csproj", "{94258B3A-A1F0-4B9F-90EF-3602825D775E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avid.PaymentService.WeChatPay.Domain.Tests", "modules\Avid.PaymentService.WeChatPay\test\Avid.PaymentService.WeChatPay.Domain.Tests\Avid.PaymentService.WeChatPay.Domain.Tests.csproj", "{19597EEE-C5BC-4EB7-8E19-79983B2ACF93}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avid.PaymentService.WeChatPay.EntityFrameworkCore.Tests", "modules\Avid.PaymentService.WeChatPay\test\Avid.PaymentService.WeChatPay.EntityFrameworkCore.Tests\Avid.PaymentService.WeChatPay.EntityFrameworkCore.Tests.csproj", "{00F84DCE-C9B3-4A1F-BBC1-19D26B2F4214}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avid.PaymentService.WeChatPay.MongoDB.Tests", "modules\Avid.PaymentService.WeChatPay\test\Avid.PaymentService.WeChatPay.MongoDB.Tests\Avid.PaymentService.WeChatPay.MongoDB.Tests.csproj", "{5474ECC0-44E4-482C-805D-F04A576C58FF}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avid.PaymentService.WeChatPay.TestBase", "modules\Avid.PaymentService.WeChatPay\test\Avid.PaymentService.WeChatPay.TestBase\Avid.PaymentService.WeChatPay.TestBase.csproj", "{43DAF4F0-7A4D-4554-965A-40BD438173EE}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avid.PaymentService.WeChatPay.EntityFrameworkCore", "modules\Avid.PaymentService.WeChatPay\src\Avid.PaymentService.WeChatPay.EntityFrameworkCore\Avid.PaymentService.WeChatPay.EntityFrameworkCore.csproj", "{6218522A-21D8-466A-B46C-7E5461FC3E62}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avid.PaymentService.WeChatPay.HttpApi", "modules\Avid.PaymentService.WeChatPay\src\Avid.PaymentService.WeChatPay.HttpApi\Avid.PaymentService.WeChatPay.HttpApi.csproj", "{96E610FF-3936-454A-A8F9-AA9F7E0B9530}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avid.PaymentService.WeChatPay.HttpApi.Client.ConsoleTestApp", "modules\Avid.PaymentService.WeChatPay\test\Avid.PaymentService.WeChatPay.HttpApi.Client.ConsoleTestApp\Avid.PaymentService.WeChatPay.HttpApi.Client.ConsoleTestApp.csproj", "{A0BB8A26-08C1-43C1-BEB0-E206E291F71C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{BC3398C2-FEFD-42E1-8F58-60BEDC7210A7}"
 EndProject
@@ -277,66 +240,6 @@ Global
 		{CC1D055F-4F38-4BBD-B72D-A2855D069E85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC1D055F-4F38-4BBD-B72D-A2855D069E85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC1D055F-4F38-4BBD-B72D-A2855D069E85}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EC3A13E6-A0F6-4233-98FF-107698F7F83B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC3A13E6-A0F6-4233-98FF-107698F7F83B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC3A13E6-A0F6-4233-98FF-107698F7F83B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EC3A13E6-A0F6-4233-98FF-107698F7F83B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{92B407F1-F54B-4ADB-9FF1-E2438FF99A7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{92B407F1-F54B-4ADB-9FF1-E2438FF99A7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{92B407F1-F54B-4ADB-9FF1-E2438FF99A7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{92B407F1-F54B-4ADB-9FF1-E2438FF99A7F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FD509137-F4DF-4E7B-92D2-FA10B25D279D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FD509137-F4DF-4E7B-92D2-FA10B25D279D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FD509137-F4DF-4E7B-92D2-FA10B25D279D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FD509137-F4DF-4E7B-92D2-FA10B25D279D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9EF90A28-5785-429A-AE2E-D1366D146C29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9EF90A28-5785-429A-AE2E-D1366D146C29}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9EF90A28-5785-429A-AE2E-D1366D146C29}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9EF90A28-5785-429A-AE2E-D1366D146C29}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B02B9E1C-16AD-46B0-A453-DBDDBC30B2C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B02B9E1C-16AD-46B0-A453-DBDDBC30B2C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B02B9E1C-16AD-46B0-A453-DBDDBC30B2C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B02B9E1C-16AD-46B0-A453-DBDDBC30B2C3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{464F96C7-7283-44EC-84A9-0FE734912D1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{464F96C7-7283-44EC-84A9-0FE734912D1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{464F96C7-7283-44EC-84A9-0FE734912D1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{464F96C7-7283-44EC-84A9-0FE734912D1F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1C7401D8-D1CE-465D-AAD8-1F22BCE87A47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1C7401D8-D1CE-465D-AAD8-1F22BCE87A47}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1C7401D8-D1CE-465D-AAD8-1F22BCE87A47}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1C7401D8-D1CE-465D-AAD8-1F22BCE87A47}.Release|Any CPU.Build.0 = Release|Any CPU
-		{94258B3A-A1F0-4B9F-90EF-3602825D775E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{94258B3A-A1F0-4B9F-90EF-3602825D775E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{94258B3A-A1F0-4B9F-90EF-3602825D775E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{94258B3A-A1F0-4B9F-90EF-3602825D775E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{19597EEE-C5BC-4EB7-8E19-79983B2ACF93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{19597EEE-C5BC-4EB7-8E19-79983B2ACF93}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{19597EEE-C5BC-4EB7-8E19-79983B2ACF93}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{19597EEE-C5BC-4EB7-8E19-79983B2ACF93}.Release|Any CPU.Build.0 = Release|Any CPU
-		{00F84DCE-C9B3-4A1F-BBC1-19D26B2F4214}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{00F84DCE-C9B3-4A1F-BBC1-19D26B2F4214}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{00F84DCE-C9B3-4A1F-BBC1-19D26B2F4214}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{00F84DCE-C9B3-4A1F-BBC1-19D26B2F4214}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5474ECC0-44E4-482C-805D-F04A576C58FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5474ECC0-44E4-482C-805D-F04A576C58FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5474ECC0-44E4-482C-805D-F04A576C58FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5474ECC0-44E4-482C-805D-F04A576C58FF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{43DAF4F0-7A4D-4554-965A-40BD438173EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{43DAF4F0-7A4D-4554-965A-40BD438173EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{43DAF4F0-7A4D-4554-965A-40BD438173EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{43DAF4F0-7A4D-4554-965A-40BD438173EE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6218522A-21D8-466A-B46C-7E5461FC3E62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6218522A-21D8-466A-B46C-7E5461FC3E62}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6218522A-21D8-466A-B46C-7E5461FC3E62}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6218522A-21D8-466A-B46C-7E5461FC3E62}.Release|Any CPU.Build.0 = Release|Any CPU
-		{96E610FF-3936-454A-A8F9-AA9F7E0B9530}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{96E610FF-3936-454A-A8F9-AA9F7E0B9530}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{96E610FF-3936-454A-A8F9-AA9F7E0B9530}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{96E610FF-3936-454A-A8F9-AA9F7E0B9530}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A0BB8A26-08C1-43C1-BEB0-E206E291F71C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A0BB8A26-08C1-43C1-BEB0-E206E291F71C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A0BB8A26-08C1-43C1-BEB0-E206E291F71C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A0BB8A26-08C1-43C1-BEB0-E206E291F71C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{56CD4432-7E9F-4DCC-B3B2-E7487590298D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{56CD4432-7E9F-4DCC-B3B2-E7487590298D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56CD4432-7E9F-4DCC-B3B2-E7487590298D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -437,24 +340,6 @@ Global
 		{E70D3977-DC6A-4A0A-9857-7D75DADF296E} = {D6291390-A21C-406D-8C9B-13F31B2636C1}
 		{5177BD4A-A370-4D51-B757-96DB80B6FF44} = {D6291390-A21C-406D-8C9B-13F31B2636C1}
 		{CC1D055F-4F38-4BBD-B72D-A2855D069E85} = {D6291390-A21C-406D-8C9B-13F31B2636C1}
-		{9A6B15DF-EA80-4B8F-AEE6-FE84FA14F0F5} = {D136E692-21B7-4BFE-BE2F-2E4CD5DB74E6}
-		{4D2E014A-433C-4557-8BD5-AE0788A5D5CD} = {9A6B15DF-EA80-4B8F-AEE6-FE84FA14F0F5}
-		{26EC0A00-3EA3-4C73-A3D9-21BC7AF4C206} = {9A6B15DF-EA80-4B8F-AEE6-FE84FA14F0F5}
-		{EC3A13E6-A0F6-4233-98FF-107698F7F83B} = {4D2E014A-433C-4557-8BD5-AE0788A5D5CD}
-		{92B407F1-F54B-4ADB-9FF1-E2438FF99A7F} = {4D2E014A-433C-4557-8BD5-AE0788A5D5CD}
-		{FD509137-F4DF-4E7B-92D2-FA10B25D279D} = {4D2E014A-433C-4557-8BD5-AE0788A5D5CD}
-		{9EF90A28-5785-429A-AE2E-D1366D146C29} = {4D2E014A-433C-4557-8BD5-AE0788A5D5CD}
-		{B02B9E1C-16AD-46B0-A453-DBDDBC30B2C3} = {4D2E014A-433C-4557-8BD5-AE0788A5D5CD}
-		{464F96C7-7283-44EC-84A9-0FE734912D1F} = {4D2E014A-433C-4557-8BD5-AE0788A5D5CD}
-		{1C7401D8-D1CE-465D-AAD8-1F22BCE87A47} = {4D2E014A-433C-4557-8BD5-AE0788A5D5CD}
-		{94258B3A-A1F0-4B9F-90EF-3602825D775E} = {26EC0A00-3EA3-4C73-A3D9-21BC7AF4C206}
-		{19597EEE-C5BC-4EB7-8E19-79983B2ACF93} = {26EC0A00-3EA3-4C73-A3D9-21BC7AF4C206}
-		{00F84DCE-C9B3-4A1F-BBC1-19D26B2F4214} = {26EC0A00-3EA3-4C73-A3D9-21BC7AF4C206}
-		{5474ECC0-44E4-482C-805D-F04A576C58FF} = {26EC0A00-3EA3-4C73-A3D9-21BC7AF4C206}
-		{43DAF4F0-7A4D-4554-965A-40BD438173EE} = {26EC0A00-3EA3-4C73-A3D9-21BC7AF4C206}
-		{6218522A-21D8-466A-B46C-7E5461FC3E62} = {4D2E014A-433C-4557-8BD5-AE0788A5D5CD}
-		{96E610FF-3936-454A-A8F9-AA9F7E0B9530} = {4D2E014A-433C-4557-8BD5-AE0788A5D5CD}
-		{A0BB8A26-08C1-43C1-BEB0-E206E291F71C} = {26EC0A00-3EA3-4C73-A3D9-21BC7AF4C206}
 		{26729714-B654-4DB7-AF69-5974437901A8} = {BC3398C2-FEFD-42E1-8F58-60BEDC7210A7}
 		{6B6DDEF3-8217-43AE-ADF2-935629F3C745} = {D136E692-21B7-4BFE-BE2F-2E4CD5DB74E6}
 		{2896F011-9D1B-4ED4-BFF7-6C16462B1CCC} = {6B6DDEF3-8217-43AE-ADF2-935629F3C745}
@@ -479,9 +364,3 @@ Global
 		SolutionGuid = {28315BFD-90E7-4E14-A2EA-F3D23AF4126F}
 	EndGlobalSection
 EndGlobal
-
-
-
-
-
-

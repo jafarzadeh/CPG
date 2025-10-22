@@ -32,9 +32,7 @@ public class WithdrawalMethodConfigurations
     public WithdrawalMethodConfigurations ConfigureAll(Action<string, WithdrawalMethodConfiguration> configureAction)
     {
         foreach (var withdrawalMethod in _withdrawalMethods)
-        {
             configureAction(withdrawalMethod.Key, withdrawalMethod.Value);
-        }
 
         return this;
     }

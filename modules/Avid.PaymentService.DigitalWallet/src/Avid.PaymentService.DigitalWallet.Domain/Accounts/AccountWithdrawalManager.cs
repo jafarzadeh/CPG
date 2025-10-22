@@ -46,10 +46,7 @@ public class AccountWithdrawalManager : DomainService, IAccountWithdrawalManager
     public virtual async Task CompleteWithdrawalAsync(Account account)
     {
         var withdrawalRecordId = account.PendingWithdrawalRecordId;
-        if (!withdrawalRecordId.HasValue)
-        {
-            throw new WithdrawalInProgressNotFoundException();
-        }
+        if (!withdrawalRecordId.HasValue) throw new WithdrawalInProgressNotFoundException();
 
         var withdrawalRecord = await _withdrawalRecordRepository.GetAsync(withdrawalRecordId.Value);
         var accountGroupConfiguration = _accountGroupConfigurationProvider.Get(account.AccountGroupName);
@@ -72,10 +69,7 @@ public class AccountWithdrawalManager : DomainService, IAccountWithdrawalManager
     {
         var accountGroupConfiguration = _accountGroupConfigurationProvider.Get(account.AccountGroupName);
         var withdrawalRecordId = account.PendingWithdrawalRecordId;
-        if (!withdrawalRecordId.HasValue)
-        {
-            throw new WithdrawalInProgressNotFoundException();
-        }
+        if (!withdrawalRecordId.HasValue) throw new WithdrawalInProgressNotFoundException();
 
         var withdrawalRecord = await _withdrawalRecordRepository.GetAsync(withdrawalRecordId.Value);
         var withdrawalProvider = GetWithdrawalProvider(withdrawalRecord.WithdrawalMethod);
@@ -91,19 +85,14 @@ public class AccountWithdrawalManager : DomainService, IAccountWithdrawalManager
     {
         var withdrawalMethodConfiguration = _withdrawalMethodConfigurationProvider.Get(withdrawalMethodName);
         var dailyMaxAmount = withdrawalMethodConfiguration.DailyMaximumWithdrawalAmountEachAccount;
-        if (!dailyMaxAmount.HasValue)
-        {
-            return;
-        }
+        if (!dailyMaxAmount.HasValue) return;
 
         var beginTime = Clock.Now.Date;
         var endTime = beginTime.AddDays(1).AddTicks(-1);
         var dailyAmount =
             await _withdrawalRecordRepository.GetCompletedTotalAmountAsync(account.Id, beginTime, endTime);
         if (dailyAmount + expectedWithdrawalAmount > dailyMaxAmount.Value)
-        {
             throw new WithdrawalAmountExceedDailyLimitException();
-        }
     }
 
     private IAccountWithdrawalProvider GetWithdrawalProvider(string withdrawalMethodName)
