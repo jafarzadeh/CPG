@@ -1,0 +1,61 @@
+@page
+@using Avid.PaymentService.DigitalWallet.Localization
+@using Avid.PaymentService.DigitalWallet.Web.Menus
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@model Avid.PaymentService.DigitalWallet.Web.Pages.PaymentService.DigitalWallet.WithdrawalRecords.WithdrawalRecord.IndexModel
+@inject IPageLayout PageLayout
+@inject IHtmlLocalizer<DigitalWalletResource> L
+@inject IAuthorizationService Authorization
+@{
+    var title = L["WithdrawalRecord"].Value;
+    if (!Model.UserName.IsNullOrEmpty())
+    {
+        title += $" - {Model.UserName}";
+    }
+
+    if (!Model.AccountGroupName.IsNullOrEmpty())
+    {
+        title += $" ({L[Model.AccountGroupName].Value})";
+    }
+
+    PageLayout.Content.Title = title;
+    PageLayout.Content.BreadCrumb.Add(L["Menu:Account"].Value);
+    PageLayout.Content.BreadCrumb.Add(L["Menu:DigitalWalletManagement"].Value);
+    PageLayout.Content.BreadCrumb.Add(L["Menu:PaymentService"].Value);
+    PageLayout.Content.MenuItemName = DigitalWalletMenus.Account;
+}
+
+@section scripts
+{
+    <abp-script src="/Pages/PaymentService/DigitalWallet/WithdrawalRecords/WithdrawalRecord/index.js"/>
+}
+
+@section styles
+{
+    <abp-style src="/Pages/PaymentService/DigitalWallet/WithdrawalRecords/WithdrawalRecord/index.css"/>
+}
+
+<script>
+    var accountId = '@Model.AccountId';
+</script>
+
+<abp-card>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="WithdrawalRecordTable" class="nowrap">
+            <thead>
+            <tr>
+                <th>@L["Actions"]</th>
+                <th>@L["WithdrawalRecordAccountId"]</th>
+                <th>@L["WithdrawalRecordWithdrawalMethod"]</th>
+                <th>@L["WithdrawalRecordAmount"]</th>
+                <th>@L["WithdrawalRecordCompletionTime"]</th>
+                <th>@L["WithdrawalRecordCancellationTime"]</th>
+                <th>@L["WithdrawalRecordResultErrorCode"]</th>
+                <th>@L["WithdrawalRecordResultErrorMessage"]</th>
+            </tr>
+            </thead>
+        </abp-table>
+    </abp-card-body>
+</abp-card>

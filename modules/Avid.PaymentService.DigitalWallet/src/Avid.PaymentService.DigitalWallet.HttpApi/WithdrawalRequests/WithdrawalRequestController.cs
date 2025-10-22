@@ -1,0 +1,40 @@
+using System;
+using System.Threading.Tasks;
+using Avid.PaymentService.DigitalWallet.WithdrawalRequests.Dtos;
+using Microsoft.AspNetCore.Mvc;
+using Volo.Abp;
+using Volo.Abp.Application.Dtos;
+
+namespace Avid.PaymentService.DigitalWallet.WithdrawalRequests;
+
+[RemoteService(Name = PaymentServiceRemoteServiceConsts.RemoteServiceName)]
+[Route("/api/payment-service/digitalWallet/withdrawal-request")]
+public class WithdrawalRequestController : DigitalWalletController, IWithdrawalRequestAppService
+{
+    private readonly IWithdrawalRequestAppService _service;
+
+    public WithdrawalRequestController(IWithdrawalRequestAppService service)
+    {
+        _service = service;
+    }
+
+    [HttpGet]
+    [Route("{id}")]
+    public virtual Task<WithdrawalRequestDto> GetAsync(Guid id)
+    {
+        return _service.GetAsync(id);
+    }
+
+    [HttpGet]
+    public virtual Task<PagedResultDto<WithdrawalRequestDto>> GetListAsync(GetWithdrawalRequestListInput input)
+    {
+        return _service.GetListAsync(input);
+    }
+
+    [HttpPost]
+    [Route("{id}/review")]
+    public virtual Task<WithdrawalRequestDto> ReviewAsync(Guid id, ReviewWithdrawalRequestInput input)
+    {
+        return _service.ReviewAsync(id, input);
+    }
+}

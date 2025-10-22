@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <RootNamespace>Avid.PaymentService</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.AutoMapper" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.Ddd.Domain" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.ObjectExtending" Version="$(AbpVersion)" />
+    <ProjectReference Include="..\Avid.PaymentService.Domain.Shared\Avid.PaymentService.Domain.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
+
+
+
+
+

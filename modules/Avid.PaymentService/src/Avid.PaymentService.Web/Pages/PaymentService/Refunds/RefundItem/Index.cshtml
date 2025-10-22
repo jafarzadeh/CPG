@@ -1,0 +1,44 @@
+@page
+@using Avid.PaymentService.Localization
+@using Avid.PaymentService.Web.Menus
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@model Avid.PaymentService.Web.Pages.PaymentService.Refunds.RefundItem.IndexModel
+@inject IPageLayout PageLayout
+@inject IHtmlLocalizer<PaymentServiceResource> L
+@{
+    PageLayout.Content.Title = L["RefundItem"].Value;
+    PageLayout.Content.BreadCrumb.Add(L["Menu:Refund"].Value);
+    PageLayout.Content.BreadCrumb.Add(L["Menu:PaymentService"].Value);
+    PageLayout.Content.MenuItemName = PaymentServiceMenus.Refund;
+}
+
+@section scripts
+{
+    <abp-script src="/Pages/PaymentService/Refunds/RefundItem/index.js"/>
+}
+
+@section styles
+{
+    <abp-style src="/Pages/PaymentService/Refunds/RefundItem/index.css"/>
+}
+
+<script>
+    var refundId = '@Model.RefundId';
+</script>
+
+<abp-card>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="RefundTable" class="nowrap">
+            <thead>
+            <tr>
+                <th>@L["Actions"]</th>
+                <th>@L["RefundItemPaymentItemId"]</th>
+                <th>@L["RefundItemRefundAmount"]</th>
+                <th>@L["RefundItemCustomerRemark"]</th>
+                <th>@L["RefundItemStaffRemark"]</th>
+            </tr>
+            </thead>
+        </abp-table>
+    </abp-card-body>
+</abp-card>

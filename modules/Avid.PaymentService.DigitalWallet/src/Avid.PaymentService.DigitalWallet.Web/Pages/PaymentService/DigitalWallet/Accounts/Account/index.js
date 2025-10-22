@@ -1,0 +1,74 @@
+$(function () {
+
+    var l = abp.localization.getResource('AvidPaymentServiceDigitalWallet');
+
+    var service = avid.paymentService.digitalWallet.accounts.account;
+    var changeBalanceModal = new abp.ModalManager(abp.appPath + 'PaymentService/DigitalWallet/Accounts/Account/ChangeBalanceModal');
+    var changeLockedBalanceModal = new abp.ModalManager(abp.appPath + 'PaymentService/DigitalWallet/Accounts/Account/ChangeLockedBalanceModal');
+
+    var dataTable = $('#AccountTable').DataTable(abp.libs.datatables.normalizeConfiguration({
+        processing: true,
+        serverSide: true,
+        paging: true,
+        searching: false,
+        autoWidth: false,
+        scrollCollapse: true,
+        order: [[0, "asc"]],
+        ajax: abp.libs.datatables.createAjax(service.getList, function () {
+            return { userId: userId }
+        }),
+        columnDefs: [
+            {
+                rowAction: {
+                    items:
+                        [
+                            {
+                                text: l('ChangeAccountBalance'),
+                                action: function (data) {
+                                    changeBalanceModal.open({ id: data.record.id });
+                                }
+                            },
+                            {
+                                text: l('ChangeAccountLockedBalance'),
+                                action: function (data) {
+                                    changeLockedBalanceModal.open({ id: data.record.id });
+                                }
+                            },
+                            {
+                                text: l('Transaction'),
+                                action: function (data) {
+                                    document.location.href = document.location.origin + '/PaymentService/DigitalWallet/Transactions/Transaction?AccountId=' + data.record.id;
+                                }
+                            },
+                            {
+                                text: l('WithdrawalRecord'),
+                                action: function (data) {
+                                    document.location.href = document.location.origin + '/PaymentService/DigitalWallet/WithdrawalRecords/WithdrawalRecord?AccountId=' + data.record.id;
+                                }
+                            }
+                        ]
+                }
+            },
+            { data: "accountGroupName" },
+            { data: "userId" },
+            { data: "balance" },
+            { data: "lockedBalance" },
+            { data: "pendingTopUpPaymentId" },
+            { data: "pendingWithdrawalRecordId" },
+            { data: "pendingWithdrawalAmount" },
+        ]
+    }));
+
+    changeBalanceModal.onResult(function () {
+        dataTable.ajax.reload();
+    });
+
+    changeLockedBalanceModal.onResult(function () {
+        dataTable.ajax.reload();
+    });
+
+    $('#search-button').click(function (e) {
+        e.preventDefault();
+        document.location.href = document.location.origin + document.location.pathname + '?userId=' + $('#UserId').val();
+    })
+});

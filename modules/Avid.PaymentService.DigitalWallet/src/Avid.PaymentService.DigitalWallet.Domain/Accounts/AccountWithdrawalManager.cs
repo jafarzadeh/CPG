@@ -1,0 +1,117 @@
+using System.Threading.Tasks;
+using Avid.PaymentService.DigitalWallet.Options.AccountGroups;
+using Avid.PaymentService.DigitalWallet.Options.WithdrawalMethods;
+using Avid.PaymentService.DigitalWallet.Transactions;
+using Avid.PaymentService.DigitalWallet.WithdrawalRecords;
+using JetBrains.Annotations;
+using Volo.Abp.Data;
+using Volo.Abp.Domain.Services;
+
+namespace Avid.PaymentService.DigitalWallet.Accounts;
+
+public class AccountWithdrawalManager : DomainService, IAccountWithdrawalManager
+{
+    private readonly IAccountGroupConfigurationProvider _accountGroupConfigurationProvider;
+    private readonly IAccountRepository _accountRepository;
+    private readonly ITransactionRepository _transactionRepository;
+    private readonly IWithdrawalMethodConfigurationProvider _withdrawalMethodConfigurationProvider;
+    private readonly IWithdrawalRecordRepository _withdrawalRecordRepository;
+
+    public AccountWithdrawalManager(IAccountRepository accountRepository, ITransactionRepository transactionRepository,
+        IWithdrawalRecordRepository withdrawalRecordRepository,
+        IAccountGroupConfigurationProvider accountGroupConfigurationProvider,
+        IWithdrawalMethodConfigurationProvider withdrawalMethodConfigurationProvider)
+    {
+        _accountRepository = accountRepository;
+        _transactionRepository = transactionRepository;
+        _withdrawalRecordRepository = withdrawalRecordRepository;
+        _accountGroupConfigurationProvider = accountGroupConfigurationProvider;
+        _withdrawalMethodConfigurationProvider = withdrawalMethodConfigurationProvider;
+    }
+
+    public virtual async Task StartWithdrawalAsync(Account account, string withdrawalMethod, decimal amount,
+        ExtraPropertyDictionary inputExtraProperties)
+    {
+        var accountGroupConfiguration = _accountGroupConfigurationProvider.Get(account.AccountGroupName);
+        var withdrawalProvider = GetWithdrawalProvider(withdrawalMethod);
+        await CheckDailyWithdrawalAmountAsync(account, withdrawalMethod, amount);
+        var withdrawalRecord = new WithdrawalRecord(GuidGenerator.Create(), CurrentTenant.Id, account.Id,
+            withdrawalMethod, amount);
+        account.StartWithdrawal(accountGroupConfiguration, withdrawalRecord.Id, withdrawalRecord.Amount);
+        await _withdrawalRecordRepository.InsertAsync(withdrawalRecord, true);
+        await _accountRepository.UpdateAsync(account, true);
+        await withdrawalProvider.OnStartWithdrawalAsync(account, withdrawalMethod, amount, inputExtraProperties);
+    }
+
+    public virtual async Task CompleteWithdrawalAsync(Account account)
+    {
+        var withdrawalRecordId = account.PendingWithdrawalRecordId;
+        if (!withdrawalRecordId.HasValue)
+        {
+            throw new WithdrawalInProgressNotFoundException();
+        }
+
+        var withdrawalRecord = await _withdrawalRecordRepository.GetAsync(withdrawalRecordId.Value);
+        var accountGroupConfiguration = _accountGroupConfigurationProvider.Get(account.AccountGroupName);
+        var withdrawalProvider = GetWithdrawalProvider(withdrawalRecord.WithdrawalMethod);
+        var originalBalance = account.Balance;
+        account.CompleteWithdrawal(accountGroupConfiguration);
+        withdrawalRecord.Complete(Clock.Now);
+        await _accountRepository.UpdateAsync(account, true);
+        await _withdrawalRecordRepository.UpdateAsync(withdrawalRecord, true);
+        var accountChangedBalance = -1 * withdrawalRecord.Amount;
+        var transaction = new Transaction(GuidGenerator.Create(), CurrentTenant.Id, account.Id, account.UserId, null,
+            TransactionType.Credit, DigitalWalletConsts.WithdrawalActionName, withdrawalRecord.WithdrawalMethod, null,
+            accountGroupConfiguration.Currency, accountChangedBalance, originalBalance);
+        await _transactionRepository.InsertAsync(transaction, true);
+        await withdrawalProvider.OnCompleteWithdrawalAsync(account);
+    }
+
+    public virtual async Task CancelWithdrawalAsync(Account account, string errorCode = null,
+        string errorMessage = null)
+    {
+        var accountGroupConfiguration = _accountGroupConfigurationProvider.Get(account.AccountGroupName);
+        var withdrawalRecordId = account.PendingWithdrawalRecordId;
+        if (!withdrawalRecordId.HasValue)
+        {
+            throw new WithdrawalInProgressNotFoundException();
+        }
+
+        var withdrawalRecord = await _withdrawalRecordRepository.GetAsync(withdrawalRecordId.Value);
+        var withdrawalProvider = GetWithdrawalProvider(withdrawalRecord.WithdrawalMethod);
+        account.CancelWithdrawal(accountGroupConfiguration);
+        withdrawalRecord.Cancel(Clock.Now, errorCode, errorMessage);
+        await _accountRepository.UpdateAsync(account, true);
+        await _withdrawalRecordRepository.UpdateAsync(withdrawalRecord, true);
+        await withdrawalProvider.OnCancelWithdrawalAsync(account);
+    }
+
+    private async Task CheckDailyWithdrawalAmountAsync(Account account, [NotNull] string withdrawalMethodName,
+        decimal expectedWithdrawalAmount)
+    {
+        var withdrawalMethodConfiguration = _withdrawalMethodConfigurationProvider.Get(withdrawalMethodName);
+        var dailyMaxAmount = withdrawalMethodConfiguration.DailyMaximumWithdrawalAmountEachAccount;
+        if (!dailyMaxAmount.HasValue)
+        {
+            return;
+        }
+
+        var beginTime = Clock.Now.Date;
+        var endTime = beginTime.AddDays(1).AddTicks(-1);
+        var dailyAmount =
+            await _withdrawalRecordRepository.GetCompletedTotalAmountAsync(account.Id, beginTime, endTime);
+        if (dailyAmount + expectedWithdrawalAmount > dailyMaxAmount.Value)
+        {
+            throw new WithdrawalAmountExceedDailyLimitException();
+        }
+    }
+
+    private IAccountWithdrawalProvider GetWithdrawalProvider(string withdrawalMethodName)
+    {
+        var providerType =
+            _withdrawalMethodConfigurationProvider.Get(withdrawalMethodName)?.AccountWithdrawalProviderType ??
+            throw new UnknownWithdrawalMethodException(withdrawalMethodName);
+        return LazyServiceProvider.LazyGetService(providerType) as IAccountWithdrawalProvider ??
+               throw new UnknownWithdrawalMethodException(withdrawalMethodName);
+    }
+}

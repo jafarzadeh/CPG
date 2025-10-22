@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <RootNamespace>Avid.PaymentService.DigitalWallet</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Ddd.Domain" Version="$(AbpVersion)" />
+    <ProjectReference Include="..\..\..\Avid.PaymentService\src\Avid.PaymentService.Domain\Avid.PaymentService.Domain.csproj" />
+    <ProjectReference Include="..\Avid.PaymentService.DigitalWallet.Domain.Shared\Avid.PaymentService.DigitalWallet.Domain.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
+
+
+
+
+
+

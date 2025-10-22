@@ -1,0 +1,65 @@
+@page
+@using Avid.PaymentService.DigitalWallet.Localization
+@using Avid.PaymentService.DigitalWallet.Web.Menus
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@model Avid.PaymentService.DigitalWallet.Web.Pages.PaymentService.DigitalWallet.Accounts.Account.IndexModel
+@inject IPageLayout PageLayout
+@inject IHtmlLocalizer<DigitalWalletResource> L
+@inject IAuthorizationService Authorization
+@{
+    PageLayout.Content.Title = L["Menu:Account"].Value;
+    PageLayout.Content.BreadCrumb.Add(L["Menu:DigitalWalletManagement"].Value);
+    PageLayout.Content.BreadCrumb.Add(L["Menu:PaymentService"].Value);
+    PageLayout.Content.MenuItemName = DigitalWalletMenus.Account;
+}
+
+@section scripts
+{
+    <abp-script src="/Pages/PaymentService/DigitalWallet/Accounts/Account/index.js"/>
+}
+
+@section styles
+{
+    <abp-style src="/Pages/PaymentService/DigitalWallet/Accounts/Account/index.css"/>
+}
+
+<script>
+    var userId = '@Model.UserId';
+</script>
+
+@if (!Model.UserId.HasValue)
+{
+    <form data-ajaxForm="true" asp-page="Index">
+        <abp-card>
+            <abp-card-body>
+                <abp-input asp-for="UserId"/>
+            </abp-card-body>
+            <abp-modal-footer>
+                <abp-button id="search-button" button-type="Primary" text="Search"/>
+            </abp-modal-footer>
+        </abp-card>
+    </form>
+}
+else
+{
+    <abp-card>
+        <abp-card-body>
+            <abp-table striped-rows="true" id="AccountTable" class="nowrap">
+                <thead>
+                <tr>
+                    <th>@L["Actions"]</th>
+                    <th>@L["AccountAccountGroupName"]</th>
+                    <th>@L["AccountUserId"]</th>
+                    <th>@L["AccountBalance"]</th>
+                    <th>@L["AccountLockedBalance"]</th>
+                    <th>@L["AccountPendingTopUpPaymentId"]</th>
+                    <th>@L["AccountPendingWithdrawalRecordId"]</th>
+                    <th>@L["AccountPendingWithdrawalAmount"]</th>
+                </tr>
+                </thead>
+            </abp-table>
+        </abp-card-body>
+    </abp-card>
+}

@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <RootNamespace>Avid.PaymentService.DigitalWallet</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="9.0.4" />
+    <ProjectReference Include="..\..\..\Avid.PaymentService\src\Avid.PaymentService.EntityFrameworkCore\Avid.PaymentService.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\src\Avid.PaymentService.DigitalWallet.EntityFrameworkCore\Avid.PaymentService.DigitalWallet.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\Avid.PaymentService.DigitalWallet.TestBase\Avid.PaymentService.DigitalWallet.TestBase.csproj" />
+    <PackageReference Include="Volo.Abp.EntityFrameworkCore.Sqlite" Version="$(AbpVersion)" />
+  </ItemGroup>
+
+</Project>
+
+
+
+
+
+

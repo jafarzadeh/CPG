@@ -1,0 +1,62 @@
+@page
+@using Avid.PaymentService.DigitalWallet.Localization
+@using Avid.PaymentService.DigitalWallet.Web.Menus
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@model Avid.PaymentService.DigitalWallet.Web.Pages.PaymentService.DigitalWallet.Transactions.Transaction.IndexModel
+@inject IPageLayout PageLayout
+@inject IHtmlLocalizer<DigitalWalletResource> L
+@inject IAuthorizationService Authorization
+@{
+    var title = L["Transaction"].Value;
+    if (!Model.UserName.IsNullOrEmpty())
+    {
+        title += $" - {Model.UserName}";
+    }
+
+    if (!Model.AccountGroupName.IsNullOrEmpty())
+    {
+        title += $" ({L[Model.AccountGroupName].Value})";
+    }
+
+    PageLayout.Content.Title = title;
+    PageLayout.Content.BreadCrumb.Add(L["Menu:Account"].Value);
+    PageLayout.Content.BreadCrumb.Add(L["Menu:DigitalWalletManagement"].Value);
+    PageLayout.Content.BreadCrumb.Add(L["Menu:PaymentService"].Value);
+    PageLayout.Content.MenuItemName = DigitalWalletMenus.Account;
+}
+
+@section scripts
+{
+    <abp-script src="/Pages/PaymentService/DigitalWallet/Transactions/Transaction/index.js"/>
+}
+
+@section styles
+{
+    <abp-style src="/Pages/PaymentService/DigitalWallet/Transactions/Transaction/index.css"/>
+}
+
+<script>
+    var accountId = '@Model.AccountId';
+</script>
+
+<abp-card>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="TransactionTable" class="nowrap">
+            <thead>
+            <tr>
+                <th>@L["Actions"]</th>
+                <th>@L["TransactionPaymentId"]</th>
+                <th>@L["TransactionTransactionType"]</th>
+                <th>@L["TransactionActionName"]</th>
+                <th>@L["TransactionPaymentMethod"]</th>
+                <th>@L["TransactionExternalTradingCode"]</th>
+                <th>@L["TransactionCurrency"]</th>
+                <th>@L["TransactionChangedBalance"]</th>
+                <th>@L["TransactionOriginalBalance"]</th>
+            </tr>
+            </thead>
+        </abp-table>
+    </abp-card-body>
+</abp-card>

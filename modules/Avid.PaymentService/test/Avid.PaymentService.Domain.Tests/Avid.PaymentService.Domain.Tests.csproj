@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <RootNamespace>Avid.PaymentService</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+    <ProjectReference Include="..\Avid.PaymentService.EntityFrameworkCore.Tests\Avid.PaymentService.EntityFrameworkCore.Tests.csproj" />
+  </ItemGroup>
+
+</Project>
+
+
+
+
+

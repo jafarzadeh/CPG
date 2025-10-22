@@ -1,0 +1,44 @@
+@page
+@using Avid.PaymentService.DigitalWallet.Localization
+@using Avid.PaymentService.DigitalWallet.Web.Menus
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@model Avid.PaymentService.DigitalWallet.Web.Pages.PaymentService.DigitalWallet.WithdrawalRequests.WithdrawalRequest.IndexModel
+@inject IPageLayout PageLayout
+@inject IHtmlLocalizer<DigitalWalletResource> L
+@inject IAuthorizationService Authorization
+@{
+    PageLayout.Content.Title = L["Menu:WithdrawalRequest"].Value;
+    PageLayout.Content.BreadCrumb.Add(L["Menu:DigitalWalletManagement"].Value);
+    PageLayout.Content.BreadCrumb.Add(L["Menu:PaymentService"].Value);
+    PageLayout.Content.MenuItemName = DigitalWalletMenus.WithdrawalRequest;
+}
+
+@section scripts
+{
+    <abp-script src="/Pages/PaymentService/DigitalWallet/WithdrawalRequests/WithdrawalRequest/index.js"/>
+}
+
+@section styles
+{
+    <abp-style src="/Pages/PaymentService/DigitalWallet/WithdrawalRequests/WithdrawalRequest/index.css"/>
+}
+
+<abp-card>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="WithdrawalRequestTable" class="nowrap">
+            <thead>
+            <tr>
+                <th>@L["Actions"]</th>
+                <th>@L["WithdrawalRequestAccountId"]</th>
+                <th>@L["WithdrawalRequestAccountUserId"]</th>
+                <th>@L["WithdrawalRequestAmount"]</th>
+                <th>@L["WithdrawalRequestReviewTime"]</th>
+                <th>@L["WithdrawalRequestReviewerUserId"]</th>
+                <th>@L["WithdrawalRequestIsApproved"]</th>
+            </tr>
+            </thead>
+        </abp-table>
+    </abp-card-body>
+</abp-card>

@@ -1,0 +1,19 @@
+using System;
+using Volo.Abp.Application.Dtos;
+
+namespace Avid.PaymentService.DigitalWallet.Transactions.Dtos;
+
+[Serializable]
+public class TransactionDto : ExtensibleCreationAuditedEntityDto<Guid>
+{
+    public Guid AccountId { get; set; }
+    public Guid AccountUserId { get; set; }
+    public Guid? PaymentId { get; set; }
+    public TransactionType TransactionType { get; set; }
+    public string ActionName { get; set; }
+    public string PaymentMethod { get; set; }
+    public string ExternalTradingCode { get; set; }
+    public string Currency { get; set; }
+    public decimal ChangedBalance { get; set; }
+    public decimal OriginalBalance { get; set; }
+}

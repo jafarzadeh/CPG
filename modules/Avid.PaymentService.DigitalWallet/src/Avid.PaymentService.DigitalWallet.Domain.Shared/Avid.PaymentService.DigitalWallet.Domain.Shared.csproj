@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <RootNamespace>Avid.PaymentService.DigitalWallet</RootNamespace>
+    <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Ddd.Domain.Shared" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.Validation" Version="$(AbpVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="9.0.4" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Include="Localization\*.json" />
+    <Content Remove="Localization\*.json" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Include="Localization\DigitalWallet\cs.json" />
+    <EmbeddedResource Include="Localization\DigitalWallet\fa.json" />
+    <EmbeddedResource Include="Localization\DigitalWallet\en.json" />
+    <EmbeddedResource Include="Localization\DigitalWallet\pl-PL.json" />
+    <EmbeddedResource Include="Localization\DigitalWallet\pt-BR.json" />
+    <EmbeddedResource Include="Localization\DigitalWallet\sl.json" />
+    <EmbeddedResource Include="Localization\DigitalWallet\tr.json" />
+    <EmbeddedResource Include="Localization\DigitalWallet\vi.json" />
+    <EmbeddedResource Include="Localization\DigitalWallet\zh-Hans.json" />
+    <EmbeddedResource Include="Localization\DigitalWallet\zh-Hant.json" />
+  </ItemGroup>
+
+</Project>
+
+
+
+
+
+

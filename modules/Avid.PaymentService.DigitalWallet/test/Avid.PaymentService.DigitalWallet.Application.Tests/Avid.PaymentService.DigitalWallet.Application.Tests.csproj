@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <RootNamespace>Avid.PaymentService.DigitalWallet</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Avid.PaymentService\src\Avid.PaymentService.Application\Avid.PaymentService.Application.csproj" />
+    <ProjectReference Include="..\..\src\Avid.PaymentService.DigitalWallet.Application\Avid.PaymentService.DigitalWallet.Application.csproj" />
+    <ProjectReference Include="..\Avid.PaymentService.DigitalWallet.Domain.Tests\Avid.PaymentService.DigitalWallet.Domain.Tests.csproj" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+  </ItemGroup>
+
+</Project>
+
+
+
+
+
+

@@ -1,0 +1,47 @@
+@page
+@using Avid.PaymentService.Localization
+@using Avid.PaymentService.Web.Menus
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@model Avid.PaymentService.Web.Pages.PaymentService.Payments.PaymentItem.IndexModel
+@inject IPageLayout PageLayout
+@inject IHtmlLocalizer<PaymentServiceResource> L
+@{
+    PageLayout.Content.Title = L["PaymentItem"].Value;
+    PageLayout.Content.BreadCrumb.Add(L["Menu:Payment"].Value);
+    PageLayout.Content.BreadCrumb.Add(L["Menu:PaymentService"].Value);
+    PageLayout.Content.MenuItemName = PaymentServiceMenus.Payment;
+}
+
+@section scripts
+{
+    <abp-script src="/Pages/PaymentService/Payments/PaymentItem/index.js"/>
+}
+
+@section styles
+{
+    <abp-style src="/Pages/PaymentService/Payments/PaymentItem/index.css"/>
+}
+
+<script>
+    var paymentId = '@Model.PaymentId';
+</script>
+
+<abp-card>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="PaymentItemTable" class="nowrap">
+            <thead>
+            <tr>
+                <th>@L["Actions"]</th>
+                <th>@L["PaymentItemItemType"]</th>
+                <th>@L["PaymentItemItemKey"]</th>
+                <th>@L["PaymentItemOriginalPaymentAmount"]</th>
+                <th>@L["PaymentItemPaymentDiscount"]</th>
+                <th>@L["PaymentItemActualPaymentAmount"]</th>
+                <th>@L["PaymentItemRefundAmount"]</th>
+                <th>@L["PaymentItemPendingRefundAmount"]</th>
+            </tr>
+            </thead>
+        </abp-table>
+    </abp-card-body>
+</abp-card>
