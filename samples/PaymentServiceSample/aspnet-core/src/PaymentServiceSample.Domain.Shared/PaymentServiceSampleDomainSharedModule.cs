@@ -31,7 +31,8 @@ public class PaymentServiceSampleDomainSharedModule : AbpModule
         });
         Configure<AbpLocalizationOptions>(options =>
         {
-            options.Resources.Add<PaymentServiceSampleResource>("en").AddBaseTypes(typeof(AbpValidationResource))
+            options.Resources.Add<PaymentServiceSampleResource>("en")
+                .AddBaseTypes(typeof(AbpValidationResource))
                 .AddVirtualJson("/Localization/PaymentServiceSample");
             options.DefaultResourceType = typeof(PaymentServiceSampleResource);
         });

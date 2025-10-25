@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using Avid.PaymentService;
 using Avid.PaymentService.DigitalWallet;
@@ -113,10 +113,10 @@ public class PaymentServiceSampleWebModule : AbpModule
         });
         Configure<PaymentServiceDigitalWalletOptions>(options =>
         {
-            options.AccountGroups.Configure<DefaultAccountGroup>(accountGroup => { accountGroup.Currency = "CNY"; });
+            options.AccountGroups.Configure<DefaultAccountGroup>(accountGroup => { accountGroup.Currency = "IRR"; });
             options.AccountGroups.Configure<CustomAccountGroup>(accountGroup =>
             {
-                accountGroup.Currency = "CNY";
+                accountGroup.Currency = "IRR";
                 accountGroup.AllowedUsingToTopUpOtherAccounts = true;
             });
             options.WithdrawalMethods.Configure<NullWithdrawalMethod>(withdrawalMethod =>
@@ -200,6 +200,7 @@ public class PaymentServiceSampleWebModule : AbpModule
         {
             options.Resources.Get<PaymentServiceSampleResource>().AddBaseTypes(typeof(AbpUiResource));
             options.Languages.Add(new LanguageInfo("en", "en", "English"));
+            options.Languages.Add(new LanguageInfo("fa", "fa", "فارسی"));
         });
     }
 
