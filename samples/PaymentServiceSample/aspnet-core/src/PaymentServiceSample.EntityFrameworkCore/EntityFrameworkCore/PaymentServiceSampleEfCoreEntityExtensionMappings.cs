@@ -1,4 +1,10 @@
+using Microsoft.EntityFrameworkCore;
+using System;
+using PaymentServiceSample.Enums;
+using Volo.Abp.Identity;
+using Volo.Abp.ObjectExtending;
 using Volo.Abp.Threading;
+using static PaymentServiceSample.PaymentServiceSampleConsts.ExtraProperties.IdentityUser;
 
 namespace PaymentServiceSample.EntityFrameworkCore;
 
@@ -10,7 +16,47 @@ public static class PaymentServiceSampleEfCoreEntityExtensionMappings
     {
         OneTimeRunner.Run(() =>
         {
-            /* You can configure entity extension properties for the                 * entities defined in the used modules.                 *                 * The properties defined here becomes table fields.                 * If you want to use the ExtraProperties dictionary of the entity                 * instead of creating a new field, then define the property in the                 * PaymentServiceSampleDomainObjectExtensions class.                 *                 * Example:                 *                 * ObjectExtensionManager.Instance                 *    .MapEfCoreProperty<IdentityUser, string>(                 *        "MyProperty",                 *        b => b.HasMaxLength(128)                 *    );                 *                 * See the documentation for more:                 * https://docs.abp.io/en/abp/latest/Customizing-Application-Modules-Extending-Entities                 */
+            ObjectExtensionManager.Instance.AddOrUpdate<IdentityUser>(o =>
+            {
+                o.MapEfCoreProperty<string>(NationalCode, (tb, b) =>
+                {
+                    tb.HasIndex(NationalCode, nameof(IdentityUser.TenantId))
+                        .IsUnique();
+
+                    b.HasMaxLength(10)
+                        .HasDefaultValue(null);
+                });
+
+                o.MapEfCoreProperty<string>("IdCode", (_, b) =>
+                {
+                    b.HasMaxLength(100)
+                        .HasDefaultValue(null);
+                });
+
+                o.MapEfCoreProperty<Province>("ProvinceId", (_, _) => { });
+
+                o.MapEfCoreProperty<string>("City", (_, b) =>
+                {
+                    b.HasMaxLength(100)
+                        .HasDefaultValue(null);
+                });
+
+                o.MapEfCoreProperty<string>("Address", (_, b) => { b.HasDefaultValue(null); });
+
+                o.MapEfCoreProperty<string>("ZipCode", (_, b) =>
+                {
+                    b.HasMaxLength(10)
+                        .HasDefaultValue(null);
+                });
+
+                o.MapEfCoreProperty<string>("FatherName", (_, b) =>
+                {
+                    b.HasMaxLength(50)
+                        .HasDefaultValue(null);
+                });
+
+                o.MapEfCoreProperty<DateOnly?>("BirthDate", (_, b) => { b.HasDefaultValue(null); });
+            });
         });
     }
 }

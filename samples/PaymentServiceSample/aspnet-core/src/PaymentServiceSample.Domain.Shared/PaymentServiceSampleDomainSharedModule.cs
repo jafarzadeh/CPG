@@ -25,10 +25,13 @@ public class PaymentServiceSampleDomainSharedModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
+        PaymentServiceObjectExtensions.Configure();
+
         Configure<AbpVirtualFileSystemOptions>(options =>
         {
             options.FileSets.AddEmbedded<PaymentServiceSampleDomainSharedModule>();
         });
+
         Configure<AbpLocalizationOptions>(options =>
         {
             options.Resources.Add<PaymentServiceSampleResource>("en")
