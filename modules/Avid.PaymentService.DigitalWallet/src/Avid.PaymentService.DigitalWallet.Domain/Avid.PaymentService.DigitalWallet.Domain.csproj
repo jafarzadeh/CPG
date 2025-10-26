@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Volo.Abp.Ddd.Domain" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.Users.Domain" Version="9.2.1" />
     <ProjectReference Include="..\..\..\Avid.PaymentService\src\Avid.PaymentService.Domain\Avid.PaymentService.Domain.csproj" />
     <ProjectReference Include="..\Avid.PaymentService.DigitalWallet.Domain.Shared\Avid.PaymentService.DigitalWallet.Domain.Shared.csproj" />
   </ItemGroup>

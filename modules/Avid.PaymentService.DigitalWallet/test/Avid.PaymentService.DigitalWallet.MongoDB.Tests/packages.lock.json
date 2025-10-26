@@ -1189,6 +1189,33 @@
           "Volo.Abp.Core": "9.2.1"
         }
       },
+      "Volo.Abp.Users.Abstractions": {
+        "type": "Transitive",
+        "resolved": "9.2.1",
+        "contentHash": "+gBL8vuUUN9LHGiirkki2qKi+M2iHvWo0boY3pQG6qSRRV5aYGFGUdbkxnUxz1E7nc+hJ1HBxDeKOkJ34nB1vw==",
+        "dependencies": {
+          "Volo.Abp.EventBus": "9.2.1",
+          "Volo.Abp.MultiTenancy": "9.2.1"
+        }
+      },
+      "Volo.Abp.Users.Domain": {
+        "type": "Transitive",
+        "resolved": "9.2.1",
+        "contentHash": "rxr2vnIzm8ABDCDD0ucRfQAAPbxoIzSMTUOgGP87AHkCBISJRRzlPLqSB3j0+2roJwLhD+hOm+pfPJ66NNFCMA==",
+        "dependencies": {
+          "Volo.Abp.Ddd.Domain": "9.2.1",
+          "Volo.Abp.Users.Abstractions": "9.2.1",
+          "Volo.Abp.Users.Domain.Shared": "9.2.1"
+        }
+      },
+      "Volo.Abp.Users.Domain.Shared": {
+        "type": "Transitive",
+        "resolved": "9.2.1",
+        "contentHash": "p9t7tZFdC35rsEKNrt9JuBXJoVx6UUoNZ2As6Net8eDMqnsN6vAn5gwjSYrN7aSqWM5XvHDg5FaDtOFslVqnxQ==",
+        "dependencies": {
+          "Volo.Abp.Core": "9.2.1"
+        }
+      },
       "Volo.Abp.Validation": {
         "type": "Transitive",
         "resolved": "9.2.1",
@@ -1277,6 +1304,45 @@
         "resolved": "0.7.3",
         "contentHash": "U9Ix4l4cl58Kzz1rJzj5hoVTjmbx1qGMwzAcbv1j/d3NzrFaESIurQyg+ow4mivCgkE3S413y+U9k4WdnEIkRA=="
       },
+      "avid.paymentservice.digitalwallet.domain": {
+        "type": "Project",
+        "dependencies": {
+          "Avid.PaymentService.DigitalWallet.Domain.Shared": "[2.17.0-preview.1, )",
+          "Avid.PaymentService.Domain": "[2.17.0-preview.1, )",
+          "Volo.Abp.Ddd.Domain": "[9.2.1, )",
+          "Volo.Abp.Users.Domain": "[9.2.1, )"
+        }
+      },
+      "avid.paymentservice.digitalwallet.domain.shared": {
+        "type": "Project",
+        "dependencies": {
+          "Microsoft.Extensions.FileProviders.Embedded": "[9.0.4, )",
+          "Volo.Abp.Ddd.Domain.Shared": "[9.2.1, )",
+          "Volo.Abp.Validation": "[9.2.1, )"
+        }
+      },
+      "avid.paymentservice.digitalwallet.mongodb": {
+        "type": "Project",
+        "dependencies": {
+          "Avid.PaymentService.DigitalWallet.Domain": "[2.17.0-preview.1, )",
+          "Volo.Abp.MongoDB": "[9.2.1, )"
+        }
+      },
+      "avid.paymentservice.digitalwallet.testbase": {
+        "type": "Project",
+        "dependencies": {
+          "Avid.PaymentService.DigitalWallet.Domain": "[2.17.0-preview.1, )",
+          "Microsoft.NET.Test.Sdk": "[17.13.0, )",
+          "NSubstitute": "[5.3.0, )",
+          "Shouldly": "[4.3.0, )",
+          "Volo.Abp.Authorization": "[9.2.1, )",
+          "Volo.Abp.Autofac": "[9.2.1, )",
+          "Volo.Abp.TestBase": "[9.2.1, )",
+          "xunit": "[2.9.3, )",
+          "xunit.extensibility.execution": "[2.9.3, )",
+          "xunit.runner.visualstudio": "[3.0.2, )"
+        }
+      },
       "avid.paymentservice.domain": {
         "type": "Project",
         "dependencies": {
@@ -1292,44 +1358,6 @@
           "Microsoft.Extensions.FileProviders.Embedded": "[9.0.4, )",
           "Volo.Abp.Ddd.Domain.Shared": "[9.2.1, )",
           "Volo.Abp.Validation": "[9.2.1, )"
-        }
-      },
-      "avid.paymentservice.DigitalWallet.domain": {
-        "type": "Project",
-        "dependencies": {
-          "Avid.PaymentService.Domain": "[2.17.0-preview.1, )",
-          "Avid.PaymentService.DigitalWallet.Domain.Shared": "[2.17.0-preview.1, )",
-          "Volo.Abp.Ddd.Domain": "[9.2.1, )"
-        }
-      },
-      "avid.paymentservice.DigitalWallet.domain.shared": {
-        "type": "Project",
-        "dependencies": {
-          "Microsoft.Extensions.FileProviders.Embedded": "[9.0.4, )",
-          "Volo.Abp.Ddd.Domain.Shared": "[9.2.1, )",
-          "Volo.Abp.Validation": "[9.2.1, )"
-        }
-      },
-      "avid.paymentservice.DigitalWallet.mongodb": {
-        "type": "Project",
-        "dependencies": {
-          "Avid.PaymentService.DigitalWallet.Domain": "[2.17.0-preview.1, )",
-          "Volo.Abp.MongoDB": "[9.2.1, )"
-        }
-      },
-      "avid.paymentservice.DigitalWallet.testbase": {
-        "type": "Project",
-        "dependencies": {
-          "Avid.PaymentService.DigitalWallet.Domain": "[2.17.0-preview.1, )",
-          "Microsoft.NET.Test.Sdk": "[17.13.0, )",
-          "NSubstitute": "[5.3.0, )",
-          "Shouldly": "[4.3.0, )",
-          "Volo.Abp.Authorization": "[9.2.1, )",
-          "Volo.Abp.Autofac": "[9.2.1, )",
-          "Volo.Abp.TestBase": "[9.2.1, )",
-          "xunit": "[2.9.3, )",
-          "xunit.extensibility.execution": "[2.9.3, )",
-          "xunit.runner.visualstudio": "[3.0.2, )"
         }
       }
     }

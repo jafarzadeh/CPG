@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Avid.PaymentService.DigitalWallet.Accounts.Dtos;
 using Avid.PaymentService.DigitalWallet.Options;
 using Avid.PaymentService.DigitalWallet.Options.AccountGroups;
@@ -11,9 +7,14 @@ using Avid.PaymentService.Payments;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Authorization;
+using Volo.Abp.Domain.Entities;
 using Volo.Abp.EventBus.Distributed;
 using Volo.Abp.Users;
 
@@ -27,16 +28,18 @@ public class AccountAppService : ReadOnlyAppService<Account, AccountDto, Guid, G
     private readonly PaymentServiceDigitalWalletOptions _options;
     private readonly IAccountRepository _repository;
     private readonly ITransactionRepository _transactionRepository;
+    private readonly IExternalUserLookupServiceProvider _userLookupService;
 
     public AccountAppService(IAccountGroupConfigurationProvider accountGroupConfigurationProvider,
         IOptions<PaymentServiceDigitalWalletOptions> options, IDistributedEventBus distributedEventBus,
-        ITransactionRepository transactionRepository, IAccountRepository repository) : base(repository)
+        ITransactionRepository transactionRepository, IAccountRepository repository, IExternalUserLookupServiceProvider userLookupService) : base(repository)
     {
         _options = options.Value;
         _accountGroupConfigurationProvider = accountGroupConfigurationProvider;
         _distributedEventBus = distributedEventBus;
         _transactionRepository = transactionRepository;
         _repository = repository;
+        _userLookupService = userLookupService;
     }
 
     protected override string GetPolicyName { get; set; } = DigitalWalletPermissions.Account.Default;
@@ -58,17 +61,29 @@ public class AccountAppService : ReadOnlyAppService<Account, AccountDto, Guid, G
             await AuthorizationService.CheckAsync(DigitalWalletPermissions.Account.Manage.ManageDefault);
 
         var result = await base.GetListAsync(input);
-        if (!input.UserId.HasValue) return result;
+
+        return result;
+    }
+
+    [Authorize(DigitalWalletPermissions.Account.Manage.ManageDefault)]
+    public async Task<PagedResultDto<AccountDto>> CreateAsync(Guid userId)
+    {
+        var user = await _userLookupService.FindByIdAsync(userId);
+
+        if (user is null)
+            throw new EntityNotFoundException();
+
+        var result = await base.GetListAsync(new GetAccountListInput { UserId = userId });
 
         var allAccountGroupNames = _options.AccountGroups.GetAutoCreationAccountGroupNames();
         var missingAccountGroupNames =
             allAccountGroupNames.Except(result.Items.Select(x => x.AccountGroupName)).ToArray();
         foreach (var accountGroupName in missingAccountGroupNames)
             await _repository.InsertAsync(
-                new Account(GuidGenerator.Create(), CurrentTenant.Id, accountGroupName, input.UserId.Value, 0, 0),
+                new Account(GuidGenerator.Create(), CurrentTenant.Id, accountGroupName, userId, 0, 0),
                 true);
 
-        if (!missingAccountGroupNames.IsNullOrEmpty()) result = await base.GetListAsync(input);
+        if (!missingAccountGroupNames.IsNullOrEmpty()) result = await base.GetListAsync(new GetAccountListInput { UserId = userId });
 
         return result;
     }

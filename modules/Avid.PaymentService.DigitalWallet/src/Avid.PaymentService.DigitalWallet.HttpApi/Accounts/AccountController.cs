@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Asp.Versioning;
 using Avid.PaymentService.DigitalWallet.Accounts.Dtos;
@@ -18,6 +19,13 @@ public class AccountController : DigitalWalletController, IAccountAppService
     public AccountController(IAccountAppService service)
     {
         _service = service;
+    }
+
+    [HttpPost]
+    [Route("users/{userId}/accounts")]
+    public Task<PagedResultDto<AccountDto>> CreateAsync(Guid userId)
+    {
+        return _service.CreateAsync(userId);
     }
 
     [HttpPost]
