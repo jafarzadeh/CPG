@@ -46,6 +46,12 @@ public class PaymentController : PaymentServiceController, IPaymentAppService
     }
 
     [HttpPost]
+    public Task<PaymentDto> CreatePaymentAsync(CreatePaymentInput paymentInput)
+    {
+        return _service.CreatePaymentAsync(paymentInput);
+    }
+
+    [HttpPost]
     [Route("{id}/cancel")]
     public virtual Task<PaymentDto> CancelAsync(Guid id)
     {

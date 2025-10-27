@@ -16,6 +16,8 @@ public interface IPaymentAppService :
 
     Task<PaymentDto> PayAsync(Guid id, PayInput input);
 
+    Task<PaymentDto> CreatePaymentAsync(CreatePaymentInput paymentInput);
+
     Task<PaymentDto> CancelAsync(Guid id);
 
     Task<PaymentDto> RefundRollbackAsync(Guid id);

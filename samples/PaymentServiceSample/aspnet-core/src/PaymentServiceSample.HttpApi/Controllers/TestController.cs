@@ -31,7 +31,7 @@ public class TestController : PaymentServiceSampleController
     public async Task<PaymentDto> CreateFreePaymentAsync()
     {
         await _distributedEventBus.PublishAsync(
-            new CreatePaymentEto(CurrentTenant.Id, CurrentUser.GetId(), "Free", "CNY",
+            new CreatePaymentEto(CurrentTenant.Id, CurrentUser.GetId(), "Free", "IRR",
                 new List<CreatePaymentItemEto>(new[]
                 {
                     new CreatePaymentItemEto

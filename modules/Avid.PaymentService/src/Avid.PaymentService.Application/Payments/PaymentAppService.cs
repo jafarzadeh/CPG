@@ -11,6 +11,7 @@ using Microsoft.Extensions.Localization;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Data;
+using Volo.Abp.ObjectExtending;
 using Volo.Abp.Users;
 
 namespace Avid.PaymentService.Payments;
@@ -24,19 +25,22 @@ public class PaymentAppService : ReadOnlyAppService<Payment, PaymentDto, Guid, G
     private readonly IRefundRepository _refundRepository;
     private readonly IPaymentRepository _repository;
     private readonly IStringLocalizer<PaymentServiceResource> _stringLocalizer;
+    private readonly IServiceProvider _serviceProvider;
 
     public PaymentAppService(
         IPaymentManager paymentManager,
         IStringLocalizer<PaymentServiceResource> stringLocalizer,
         IPaymentServiceResolver paymentServiceResolver,
         IRefundRepository refundRepository,
-        IPaymentRepository repository) : base(repository)
+        IPaymentRepository repository,
+        IServiceProvider serviceProvider) : base(repository)
     {
         _paymentManager = paymentManager;
         _stringLocalizer = stringLocalizer;
         _paymentServiceResolver = paymentServiceResolver;
         _refundRepository = refundRepository;
         _repository = repository;
+        _serviceProvider = serviceProvider;
     }
 
     protected override string GetPolicyName { get; set; } = PaymentServicePermissions.Payments.Default;
@@ -77,7 +81,6 @@ public class PaymentAppService : ReadOnlyAppService<Payment, PaymentDto, Guid, G
         );
     }
 
-    [AllowAnonymous]
     public virtual Task<ListResultDto<PaymentMethodDto>> GetListPaymentMethodAsync()
     {
         var paymentMethods = _paymentServiceResolver.GetPaymentMethods().Select(paymentMethod =>
@@ -107,6 +110,49 @@ public class PaymentAppService : ReadOnlyAppService<Payment, PaymentDto, Guid, G
         await _paymentManager.StartPaymentAsync(payment, configurations);
 
         return await MapToGetOutputDtoAsync(payment);
+    }
+
+    public async Task<PaymentDto> CreatePaymentAsync(CreatePaymentInput paymentInput)
+    {
+        var providerType = _paymentServiceResolver.GetProviderTypeOrDefault(paymentInput.PaymentMethod) ??
+                           throw new UnknownPaymentMethodException(paymentInput.PaymentMethod);
+
+        _ = _serviceProvider.GetService(providerType) as IPaymentServiceProvider ??
+                       throw new UnknownPaymentMethodException(paymentInput.PaymentMethod);
+
+        var paymentItems = paymentInput.PaymentItems.Select(items =>
+            {
+                var item = new PaymentItem(GuidGenerator.Create(), items.ItemType, items.ItemKey,
+                    items.OriginalPaymentAmount);
+
+                items.MapExtraPropertiesTo(item, MappingPropertyDefinitionChecks.None);  
+
+
+                return item;
+            }
+        ).ToList();
+
+        if (await HasDuplicatePaymentItemInProgressAsync(paymentItems)) 
+            throw new DuplicatePaymentRequestException();
+
+        var payment = new Payment(GuidGenerator.Create(), CurrentTenant.Id, paymentInput.UserId,
+            paymentInput.PaymentMethod, PaymentServiceConsts.IranCurrencyCode, paymentItems.Select(item => item.OriginalPaymentAmount).Sum(),
+            paymentItems);
+
+        paymentInput.MapExtraPropertiesTo(payment, MappingPropertyDefinitionChecks.None);
+
+        await _repository.InsertAsync(payment, true);
+
+        return ObjectMapper.Map<Payment, PaymentDto>(payment);
+    }
+
+    protected virtual async Task<bool> HasDuplicatePaymentItemInProgressAsync(IEnumerable<PaymentItem> paymentItems)
+    {
+        foreach (var item in paymentItems)
+            if (await _repository.FindPaymentInProgressByPaymentItem(item.ItemType, item.ItemKey) != null)
+                return true;
+
+        return false;
     }
 
     public virtual async Task<PaymentDto> CancelAsync(Guid id)
