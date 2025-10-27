@@ -49,7 +49,19 @@
     "PaymentItemPaymentDiscount": "Payment discount",
     "PaymentItemActualPaymentAmount": "Actual payment amount",
     "PaymentItemRefundAmount": "Refund amount",
-    "PaymentItemPendingRefundAmount": "Pending refund amount"
+    "PaymentItemPendingRefundAmount": "Pending refund amount",
+    "Avid.PaymentService:AnotherRefundIsInProgress": "There is another refund with the same payment ({paymentId}) in progress.",
+    "Avid.PaymentService:AnotherRefundTaskIsOnGoing": "Payment ({id}) has another ongoing refund task.",
+    "Avid.PaymentService:CurrencyNotSupported": "The currency: {currency} is not supported.",
+    "Avid.PaymentService:DuplicatePaymentItemId": "The PaymentItemId must be unique.",
+    "Avid.PaymentService:DuplicatePaymentRequest": "An payment item in the payment request is already in progress.",
+    "Avid.PaymentService:InvalidRefundAmount": "Refund amount ({refundAmount}) is invalid for the payment ({id}).",
+    "Avid.PaymentService:PayeeAccountNotFound": "Cannot find the payee account of payment method {paymentMethod}.",
+    "Avid.PaymentService:PayeeConfigurationMissingValue": "Payment method ({paymentMethod}) is missing configuration: {configurationKey}.",
+    "Avid.PaymentService:PaymentAmountInvalid": "Payment amount {paymentAmount} is invalid for payment method: {paymentMethod}.",
+    "Avid.PaymentService:PaymentIsInUnexpectedStage": "Payment ({id}) is in unexpected stage.",
+    "Avid.PaymentService:UnknownPaymentMethod": "Payment method {paymentMethod} does not exist.",
+    "Avid.PaymentService:UsingUnauthorizedPayment": "The user ({userId}) is trying to use the payment ({paymentId}) that is not his own."
   }
 }
 

@@ -4,8 +4,8 @@ namespace Avid.PaymentService.Payments;
 
 public class PayeeAccountNotFoundException : BusinessException
 {
-    public PayeeAccountNotFoundException(string paymentMethod) : base(
-        message: $"Cannot find the payee account of payment method {paymentMethod}.")
+    public PayeeAccountNotFoundException(string paymentMethod) : base(PaymentServiceErrorCodes.PayeeAccountNotFound)
     {
+        WithData("paymentMethod", paymentMethod);
     }
 }

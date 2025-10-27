@@ -6,7 +6,9 @@ namespace Avid.PaymentService.Payments;
 public class InvalidRefundAmountException : BusinessException
 {
     public InvalidRefundAmountException(Guid id, decimal refundAmount)
-        : base(message: $"Refund amount ({refundAmount}) is invalid for the payment ({id}).")
+        : base(PaymentServiceErrorCodes.InvalidRefundAmount)
     {
+        WithData("refundAmount", refundAmount);
+        WithData("id", id);
     }
 }

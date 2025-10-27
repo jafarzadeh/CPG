@@ -9,8 +9,8 @@ public class CurrencyNotSupportedException : BusinessException
     {
     }
 
-    public CurrencyNotSupportedException(string currency) : base(
-        message: $"The currency: {currency} is not supported.")
+    public CurrencyNotSupportedException(string currency) : base(PaymentServiceErrorCodes.CurrencyNotSupported)
     {
+        WithData("currency", currency);
     }
 }

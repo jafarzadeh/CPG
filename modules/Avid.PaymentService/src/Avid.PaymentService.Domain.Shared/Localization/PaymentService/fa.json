@@ -49,6 +49,18 @@
     "PaymentItemPaymentDiscount": "تخفیف پرداخت",
     "PaymentItemActualPaymentAmount": "مبلغ واقعی پرداخت",
     "PaymentItemRefundAmount": "مبلغ بازپرداخت",
-    "PaymentItemPendingRefundAmount": "مبلغ بازپرداخت در انتظار"
+    "PaymentItemPendingRefundAmount": "مبلغ بازپرداخت در انتظار",
+    "Avid.PaymentService:AnotherRefundIsInProgress": "بازپرداخت دیگری با همان شناسه پرداخت ({paymentId}) در حال انجام است.",
+    "Avid.PaymentService:AnotherRefundTaskIsOnGoing": "پرداخت ({id}) دارای یک عملیات بازپرداخت دیگر در حال اجرا است.",
+    "Avid.PaymentService:CurrencyNotSupported": "ارز {currency} پشتیبانی نمی‌شود.",
+    "Avid.PaymentService:DuplicatePaymentItemId": "شناسه PaymentItemId باید یکتا باشد.",
+    "Avid.PaymentService:DuplicatePaymentRequest": "یکی از آیتم‌های پرداخت در درخواست پرداخت در حال انجام است.",
+    "Avid.PaymentService:InvalidRefundAmount": "مبلغ بازپرداخت ({refundAmount}) برای پرداخت ({id}) نامعتبر است.",
+    "Avid.PaymentService:PayeeAccountNotFound": "حساب دریافت‌کننده برای روش پرداخت {paymentMethod} پیدا نشد.",
+    "Avid.PaymentService:PayeeConfigurationMissingValue": "روش پرداخت ({paymentMethod}) دارای مقدار تنظیمات {configurationKey} نمی‌باشد.",
+    "Avid.PaymentService:PaymentAmountInvalid": "مبلغ پرداخت ({paymentAmount}) برای روش پرداخت {paymentMethod} نامعتبر است.",
+    "Avid.PaymentService:PaymentIsInUnexpectedStage": "پرداخت ({id}) در مرحله‌ای غیرمنتظره قرار دارد.",
+    "Avid.PaymentService:UnknownPaymentMethod": "روش پرداخت {paymentMethod} وجود ندارد.",
+    "Avid.PaymentService:UsingUnauthorizedPayment": "کاربر ({userId}) در حال استفاده از پرداخت ({paymentId}) است که متعلق به او نیست."
   }
 }

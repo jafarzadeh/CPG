@@ -5,7 +5,9 @@ namespace Avid.PaymentService.Payments;
 
 public class PaymentIsInUnexpectedStageException : BusinessException
 {
-    public PaymentIsInUnexpectedStageException(Guid id) : base(message: $"Payment ({id}) is in unexpected stage.")
+    public PaymentIsInUnexpectedStageException(Guid id) 
+        : base(PaymentServiceErrorCodes.PaymentIsInUnexpectedStage)
     {
+        WithData("id", id);
     }
 }

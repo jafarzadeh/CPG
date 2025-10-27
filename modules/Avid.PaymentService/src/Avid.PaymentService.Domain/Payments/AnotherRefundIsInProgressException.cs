@@ -5,8 +5,8 @@ namespace Avid.PaymentService.Payments;
 
 public class AnotherRefundIsInProgressException : BusinessException
 {
-    public AnotherRefundIsInProgressException(Guid paymentId) : base("AnotherRefundIsInProgress",
-        $"There is another refund with the same payment ({paymentId}) in progress.")
+    public AnotherRefundIsInProgressException(Guid paymentId) : base(PaymentServiceErrorCodes.AnotherRefundIsInProgress)
     {
+        WithData("paymentId", paymentId);
     }
 }

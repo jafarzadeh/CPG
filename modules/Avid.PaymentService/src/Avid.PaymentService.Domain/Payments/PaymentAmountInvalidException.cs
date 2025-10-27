@@ -9,8 +9,10 @@ public class PaymentAmountInvalidException : BusinessException
     {
     }
 
-    public PaymentAmountInvalidException(decimal paymentAmount, string paymentMethod) : base(
-        message: $"Payment amount {paymentAmount} is invalid for payment method: {paymentMethod}.")
+    public PaymentAmountInvalidException(decimal paymentAmount, string paymentMethod) : 
+        base(PaymentServiceErrorCodes.PaymentAmountInvalid)
     {
+        WithData("paymentAmount", paymentAmount);
+        WithData("paymentMethod", paymentMethod);
     }
 }
