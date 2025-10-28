@@ -1,7 +1,9 @@
+using System.Net;
 using Avid.PaymentService.DigitalWallet.Localization;
 using Avid.PaymentService.DigitalWallet.Web.Menus;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.DependencyInjection;
+using Volo.Abp.AspNetCore.ExceptionHandling;
 using Volo.Abp.AspNetCore.Mvc.Localization;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.AutoMapper;
@@ -31,6 +33,19 @@ public class PaymentServiceDigitalWalletWebModule : AbpModule
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
+        Configure<AbpExceptionHttpStatusCodeOptions>(o =>
+        {
+            o.Map(DigitalWalletErrorCodes.UnknownWithdrawalMethod, HttpStatusCode.BadRequest);
+            o.Map(DigitalWalletErrorCodes.AmountFieldOverflow, HttpStatusCode.BadRequest);
+            o.Map(DigitalWalletErrorCodes.AmountOverflow, HttpStatusCode.BadRequest);
+            o.Map(DigitalWalletErrorCodes.LockedBalanceIsLessThenPendingWithdrawalAmount, HttpStatusCode.BadRequest);
+            o.Map(DigitalWalletErrorCodes.WithdrawalAmountExceedDailyLimit, HttpStatusCode.BadRequest);
+            o.Map(DigitalWalletErrorCodes.WithdrawalInProgressNotFound, HttpStatusCode.BadRequest);
+            o.Map(DigitalWalletErrorCodes.WithdrawalIsAlreadyInProgress, HttpStatusCode.BadRequest);
+            o.Map(DigitalWalletErrorCodes.InsufficientBalanceToLock, HttpStatusCode.BadRequest);
+        });
+
+
         Configure<AbpNavigationOptions>(options =>
         {
             options.MenuContributors.Add(new DigitalWalletMenuContributor());

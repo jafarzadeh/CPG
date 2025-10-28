@@ -65,11 +65,14 @@
     "SuccessfullyRejected": "Successfully rejected",
     "WithdrawalRequestHasBeenReviewed": "The withdrawal request has been reviewed!",
     "Approve": "Approve",
-    "Reject": "Reject"
+    "Reject": "Reject",
+    "Avid.PaymentService.DigitalWallet:AmountOverflow": "The amount should be greater than {min} and less then {max}",
+    "Avid.PaymentService.DigitalWallet:AmountFieldOverflow": "The {field} should be greater than {min} and less then {max}",
+    "Avid.PaymentService.DigitalWallet:InsufficientBalanceToLock": "Failed to lock {lockedBalance} balance. The current balance ({balance}) is insufficient to lock.",
+    "Avid.PaymentService.DigitalWallet:UnknownWithdrawalMethod": "Withdrawal method {withdrawalMethod} does not exist.",
+    "Avid.PaymentService.DigitalWallet:WithdrawalAmountExceedDailyLimit": "The maximum daily withdrawal limit has been exceeded.",
+    "Avid.PaymentService.DigitalWallet:WithdrawalInProgressNotFound": "The withdrawal in progress not found.",
+    "Avid.PaymentService.DigitalWallet:WithdrawalIsAlreadyInProgress": "Another withdrawal for the account is already in progress.",
+    "Avid.PaymentService.DigitalWallet:LockedBalanceIsLessThenPendingWithdrawalAmount": "The locked balance ({lockedBalance}) should be equal or greater than the pending withdrawal amount ({withdrawalAmount})"
   }
 }
-
-
-
-
-

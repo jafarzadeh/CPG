@@ -65,6 +65,14 @@
     "SuccessfullyRejected": "با موفقیت رد شد",
     "WithdrawalRequestHasBeenReviewed": "درخواست برداشت بازبینی شده است!",
     "Approve": "تأیید",
-    "Reject": "رد"
+    "Reject": "رد",
+    "Avid.PaymentService.DigitalWallet:AmountOverflow": "مبلغ باید بیشتر از {min} و کمتر از {max} باشد.",
+    "Avid.PaymentService.DigitalWallet:AmountFieldOverflow": "مقدار فیلد {field} باید بیشتر از {min} و کمتر از {max} باشد.",
+    "Avid.PaymentService.DigitalWallet:InsufficientBalanceToLock": "قفل‌کردن موجودی {lockedBalance} انجام نشد. موجودی فعلی ({balance}) برای قفل کردن کافی نیست.",
+    "Avid.PaymentService.DigitalWallet:UnknownWithdrawalMethod": "روش برداشت {withdrawalMethod} وجود ندارد.",
+    "Avid.PaymentService.DigitalWallet:WithdrawalAmountExceedDailyLimit": "محدودیت روزانه برداشت وجه تجاوز کرده است.",
+    "Avid.PaymentService.DigitalWallet:WithdrawalInProgressNotFound": "برداشت در حال انجام یافت نشد.",
+    "Avid.PaymentService.DigitalWallet:WithdrawalIsAlreadyInProgress": "برداشت دیگری برای این حساب در حال انجام است.",
+    "Avid.PaymentService.DigitalWallet:LockedBalanceIsLessThenPendingWithdrawalAmount": "موجودی قفل‌شده ({lockedBalance}) باید برابر یا بیشتر از مبلغ برداشت در انتظار ({withdrawalAmount}) باشد."
   }
 }
